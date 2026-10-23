@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0a1020">
+<title>Gestão Motorista Pro — Assistente</title>
+<style>
+:root{color-scheme:dark;--bg:#090e1b;--panel:#121d32;--line:#2c3b59;--text:#eef4ff;--muted:#9cacc7;--blue:#7890ff;--green:#42d6a0;--red:#ff7188;--amber:#ffd17b}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0,#1c2c52,transparent 36%),var(--bg);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif}.wrap{max-width:1100px;margin:auto;padding:16px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}.brand{display:flex;align-items:center;gap:12px}.logo{height:48px;width:48px;border-radius:15px;background:linear-gradient(135deg,#7890ff,#8c5cf6);display:grid;place-items:center;font-size:25px}.brand h1{font-size:20px;margin:0}.sub,.muted{color:var(--muted);font-size:12px}.pill{border:1px solid var(--line);border-radius:99px;padding:6px 10px;color:var(--muted);font-size:12px}.grid{display:grid;gap:12px}.stats{grid-template-columns:repeat(4,minmax(0,1fr))}.two{grid-template-columns:repeat(2,minmax(0,1fr))}.panel{background:linear-gradient(145deg,#16233a,#10192b);border:1px solid var(--line);border-radius:17px;padding:17px;margin-bottom:13px;box-shadow:0 12px 28px #0002}.stat .label{font-size:12px;color:var(--muted)}.value{font-size:clamp(20px,3vw,28px);font-weight:800;margin:8px 0}.positive{color:var(--green)}.negative{color:var(--red)}h2{font-size:17px;margin:0 0 14px}h3{font-size:14px;margin:0 0 10px}.btn{border:1px solid var(--line);background:#1b2a45;color:var(--text);border-radius:11px;padding:10px 13px;font:inherit;cursor:pointer}.btn:hover{background:#23375a}.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:750}.danger{border-color:#713449;background:#351a2a;color:#ffc6d0}.btn:disabled{opacity:.45;cursor:not-allowed}.voice{padding:15px;background:linear-gradient(140deg,#192a4b,#121d33);border:1px solid #354b75;border-radius:15px}.voicebar{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.mic{height:58px;width:58px;border:0;border-radius:50%;background:linear-gradient(135deg,#7890ff,#8c5cf6);font-size:25px;cursor:pointer}.mic.on{background:linear-gradient(135deg,#ff627e,#d92f64)}.transcript{margin-top:12px;padding:12px;border:1px solid var(--line);border-radius:10px;background:#0b1425;min-height:44px;line-height:1.5}.notice{font-size:12px;line-height:1.7;color:#ffe1a0;background:#302817;border:1px solid #69532a;padding:10px;border-radius:10px;margin-top:12px}.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.field{display:flex;flex-direction:column;gap:6px}.full{grid-column:1/-1}label{font-size:12px;color:var(--muted)}input,select{width:100%;min-width:0;background:#0b1425;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px;font:inherit}input:focus,select:focus{outline:2px solid #7890ff66;border-color:var(--blue)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.bar{height:9px;background:#293650;border-radius:99px;overflow:hidden}.bar span{display:block;height:100%;background:linear-gradient(90deg,#7890ff,#42d6a0);width:0}.line{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}.line:last-child{border:0}.line b{overflow-wrap:anywhere}.chart{display:flex;align-items:end;gap:8px;height:145px}.colwrap{flex:1;height:100%;display:flex;flex-direction:column;justify-content:end;gap:5px;text-align:center;min-width:0}.col{background:linear-gradient(#8197ff,#4d63c7);border-radius:6px 6px 2px 2px;min-height:3px}.colwrap small,.colwrap b{font-size:10px;color:var(--muted);white-space:nowrap}.toast{position:fixed;left:50%;bottom:18px;transform:translate(-50%,150%);transition:.2s;background:#1b2a44;border:1px solid #42597e;padding:12px 16px;border-radius:12px;z-index:5;max-width:90vw}.toast.show{transform:translate(-50%,0)}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.tab{border:1px solid var(--line);background:#10192b;color:var(--muted);padding:9px 12px;border-radius:10px;cursor:pointer}.tab.active{background:#26385f;color:#fff;border-color:#718cff}.empty{text-align:center;padding:18px;color:var(--muted)}section[hidden]{display:none!important}
+.auth-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(9,14,27,.95);display:flex;align-items:center;justify-content:center;z-index:999;padding:16px}
+.auth-box{width:100%;max-width:400px;background:linear-gradient(145deg,#16233a,#10192b);border:1px solid var(--line);border-radius:17px;padding:24px;box-shadow:0 12px 28px #0004}
+@media(max-width:740px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:1fr}.wrap{padding:11px}.panel{padding:14px}}@media(max-width:430px){.form{grid-template-columns:1fr}.full{grid-column:auto}.brand h1{font-size:18px}}
+</style></head>
+<body>
+
+<!-- Tela de Login / Cadastro do Firebase -->
+<div id="authModal" class="auth-overlay">
+  <div class="auth-box">
+    <div class="brand" style="justify-content:center;margin-bottom:16px;">
+      <div class="logo">↗</div>
+      <h1>Gestão Motorista <span style="color:#91a6ff">Pro</span></h1>
+    </div>
+    <h2 style="text-align:center;margin-bottom:20px;" id="authTitle">Entrar na sua conta</h2>
+    <form id="authForm" class="form" style="grid-template-columns:1fr;">
+      <div class="field"><label>E-mail</label><input type="email" id="authEmail" required placeholder="seu@email.com"></div>
+      <div class="field"><label>Senha</label><input type="password" id="authPassword" required placeholder="••••••••"></div>
+      <div class="field" style="margin-top:10px;"><button type="submit" id="authSubmitBtn" class="btn primary">Entrar</button></div>
+    </form>
+    <div style="text-align:center;margin-top:15px;">
+      <button id="toggleAuthMode" class="btn" style="background:transparent;border:0;color:var(--blue);font-size:13px;text-decoration:underline;cursor:pointer;">Não tem conta? Cadastre-se</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap" id="appWrap" style="display:none;">
+<header class="top">
+  <div class="brand"><div class="logo">↗</div><div><h1>Gestão Motorista <span style="color:#91a6ff">Pro</span></h1><div class="sub">Seu assistente de ganhos, custos e turnos</div></div></div>
+  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+    <span class="pill" id="userEmailPill">● Não conectado</span>
+    <span class="pill" id="saveState">● Salvo neste aparelho</span>
+    <button id="logoutBtn" class="btn danger" style="padding:6px 12px;font-size:12px;">Sair</button>
+  </div>
+</header>
+<nav class="tabs"><button class="tab active" data-tab="inicio">Visão geral</button><button class="tab" data-tab="lancamentos">Lançamentos</button><button class="tab" data-tab="turnos">Turnos</button><button class="tab" data-tab="custos">Custos fixos</button><button class="tab" data-tab="metas">Metas e relatórios</button><button class="tab" data-tab="tutorial">📖 Tutorial e Voz</button></nav>
+
+<div style="margin-bottom:12px">
+  <button class="btn" data-goto-tutorial style="width:100%;background:#17223b;border-color:var(--blue);color:var(--text);font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;">📖 Precisa de ajuda? Clique aqui para ver o Tutorial de Uso e as Palavras de Comando por Voz</button>
+</div>
+
+<section class="panel"><h2>🗓️ Contas futuras e pendências</h2><p class="muted">As contas pendentes ficam separadas do dinheiro que já entrou ou saiu. Você pode confirmar o pagamento/recebimento pela voz ou no histórico.</p><div class="grid two"><div><h3>Para receber</h3><div id="futureIncome"></div></div><div><h3>Para pagar</h3><div id="futureExpense"></div></div></div></section>
+<section id="tab-inicio">
+<div class="panel"><h2>🎙️ Assistente por voz inteligente</h2><div class="voice"><div class="voicebar"><button id="mic" class="mic" aria-label="Falar">🎙️</button><div style="flex:1;min-width:190px"><b id="voiceTitle">Toque no microfone e fale com calma</b><div class="sub">Ex.: “Ganhei 250 reais hoje” · “Gastei 40 reais de gasolina ontem” · “Conta a pagar 30 reais dia 25” · “Conta a pagar 30 reais já paga”</div></div><button id="stop" class="btn" disabled>Processar fala</button></div><div id="transcript" class="transcript">Sua fala recognized aparecerá aqui.</div><div class="notice">💡 <b>Exemplos:</b><br>• “Ganhei 250 reais hoje” ou “Ganhei 180 reais dia 21”<br>• “Gastei 40 reais de gasolina ontem”<br>• “Conta a pagar 30 reais dia 25” (cria pendência)<br>• “Conta a pagar 30 reais já paga” (registra como paga)<br>• “Paguei a conta de internet 60 reais”<br>• “Recebi os 100 reais que estavam pendentes”<br>• “Quanto ganhei hoje?”, “Quanto gastei ontem?”, “Quanto passei da meta?”</div></div></div>
+<div class="grid stats">
+<div class="panel stat"><div class="label">Ganhos hoje</div><div class="value positive" id="todayGain">R$ 0,00</div><div class="sub" id="todayCount">0 registros</div></div>
+<div class="panel stat"><div class="label">Despesas hoje</div><div class="value negative" id="todayExpense">R$ 0,00</div><div class="sub">Somente despesas pagas</div></div>
+<div class="panel stat"><div class="label">Saldo de hoje</div><div class="value" id="todayNet">R$ 0,00</div><div class="sub">Ganhos de hoje − despesas de hoje</div></div>
+<div class="panel stat"><div class="label">Meta diária</div><div class="value" id="dayGoalValue">R$ 200,00</div><div class="sub" id="dayGoalText">Falta R$ 200,00</div><div class="bar"><span id="dayGoalBar"></span></div></div>
+</div>
+<div class="grid two">
+  <section class="panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+      <h2 style="margin:0">📊 Ganhos Semanais (Seg a Dom)</h2>
+      <select id="weekSelector" style="width:auto;padding:6px 10px;font-size:12px;"></select>
+    </div>
+    <div id="chart" class="chart"></div>
+  </section>
+  <section class="panel"><h2>⚡ Resumo rápido do mês</h2><div class="line"><span class="muted">Ganhos no mês</span><b id="monthGain">R$ 0,00</b></div><div class="line"><span class="muted">Despesas pagas no mês</span><b id="monthExpense">R$ 0,00</b></div><div class="line"><span class="muted">Custos fixos mensais</span><b id="fixedTotal">R$ 0,00</b></div><div class="line"><span class="muted">Saldo operacional</span><b id="monthNet">R$ 0,00</b></div><div class="line"><span class="muted">Horas registradas no mês</span><b id="monthHours">0 h</b></div><div class="line"><span class="muted">Ganho por hora em turnos</span><b id="hourRate">R$ 0,00</b></div></section>
+</div>
+<div class="grid two"><section class="panel"><h2>💰 Balanço financeiro do mês</h2><div class="value" id="balanceValue">R$ 0,00</div><div class="sub">Realizado: ganhos recebidos − despesas pagas − provisão dos custos fixos.</div><div class="line"><span class="muted">Saldo realizado</span><b id="balanceRealized">R$ 0,00</b></div><div class="line"><span class="muted">A receber</span><b id="balanceReceivable">R$ 0,00</b></div><div class="line"><span class="muted">A pagar</span><b id="balancePayable">R$ 0,00</b></div><div class="line"><span class="muted">Saldo projetado (inclui pendências)</span><b id="balanceProjected">R$ 0,00</b></div></section><section class="panel"><h2>📈 Receitas x despesas (últimos 7 dias)</h2><div id="balanceChart" class="chart"></div><div class="sub">Barras verdes = ganhos; vermelhas = despesas pagas.</div></section></div>
+</section>
+<section id="tab-lancamentos" hidden>
+<section class="panel"><h2>＋ Registrar ganho ou despesa</h2><form id="entryForm" class="form"><div class="field"><label>Tipo</label><select id="kind"><option value="ganho">Ganho / faturamento</option><option value="despesa">Despesa</option></select></div><div class="field"><label>Plataforma</label><select id="platform"><option>Uber</option><option>99</option><option>Particular</option><option>Outra</option></select></div><div class="field"><label>Valor (R$)</label><input id="amount" type="number" min=".01" step=".01" required placeholder="85,50"></div><div class="field"><label>Data do lançamento</label><input id="date" type="date" required></div><div class="field"><label>Status</label><select id="entryStatus"><option value="pago">Recebido / pago</option><option value="pendente">A receber / a pagar</option></select></div><div class="field"><label>Categoria / observação</label><input id="category" placeholder="Corridas, gasolina, manutenção..."></div><div class="field"><label>Quilômetros (opcional)</label><input id="km" type="number" min="0" step=".1" placeholder="Ex.: 42"></div><div class="field full"><button class="btn primary">Salvar registro</button></div></form></section>
+<section class="panel"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap"><h2 style="margin:0">Histórico de registros</h2><div style="display:flex;gap:6px;flex-wrap:wrap"><select id="filterTime" style="width:auto"><option value="month">Este mês</option><option value="day">Hoje</option><option value="year">Este ano</option><option value="all">Todo histórico</option></select><select id="filter" style="width:auto"><option value="all">Todos</option><option value="gains">Só ganhos</option><option value="expenses">Só despesas</option><option value="pending">Pendentes</option></select></div></div><div id="history"></div></section>
+</section>
+<section id="tab-turnos" hidden><div class="grid two"><section class="panel"><h2>⏱️ Controle de turno</h2><div class="line"><span class="muted">Status atual</span><b id="shiftStatus">Nenhum turno aberto</b></div><div class="field" style="margin-top:10px"><label>Quilometragem inicial (opcional)</label><input id="startKm" type="number" min="0" step=".1" placeholder="Ex.: 12450"></div><div class="actions"><button id="startShift" class="btn primary">▶ Iniciar turno</button><button id="endShift" class="btn" disabled>■ Encerrar turno</button></div><div class="field" style="margin-top:10px"><label>Quilometragem final</label><input id="endKm" type="number" min="0" step=".1" placeholder="Ex.: 12520"></div><p class="sub">O turno fica salvo mesmo se você trocar de aba ou fechar e reabrir a página. Ao encerrar, informe a quilometragem final se tiver preenchido a inicial. No histórico abaixo você pode <b>editar</b> ou <b>excluir</b> turnos salvos.</p></section><section class="panel"><h2>📌 Indicadores de turnos</h2><div class="line"><span class="muted">Turnos concluídos</span><b id="shiftCount">0</b></div><div class="line"><span class="muted">Horas registradas este mês</span><b id="shiftHours">0 h</b></div><div class="line"><span class="muted">Ganho por hora em turnos</span><b id="shiftRate">R$ 0,00</b></div><div class="line"><span class="muted">Km registrados nos turnos</span><b id="shiftKm">0 km</b></div></section></div><section class="panel"><h2>Histórico de turnos</h2><div id="shiftHistory"></div></section></section>
+<section id="tab-custos" hidden><div class="grid two"><section class="panel"><h2>🏷️ Adicionar custo fixo</h2><form id="fixedForm" class="form"><div class="field"><label>Descrição</label><input id="fixedName" required placeholder="Aluguel da moto / Internet"></div><div class="field"><label>Valor (R$)</label><input id="fixedAmount" type="number" min=".01" step=".01" required placeholder="150,00"></div><div class="field full"><label>Frequência</label><select id="fixedFreq"><option value="semanal">Semanal</option><option value="mensal" selected>Mensal</option><option value="anual">Anual</option></select></div><div class="field full"><button class="btn primary">Adicionar custo fixo</button></div></form></section><section class="panel"><h2>Resumo de custos fixos</h2><div class="line"><span class="muted">Total mensal equivalente</span><b id="fixedSummary">R$ 0,00</b></div><div class="line"><span class="muted">Provisão diária (30 dias)</span><b id="fixedDaily">R$ 0,00</b></div><div class="line"><span class="muted">Provisão semanal</span><b id="fixedWeekly">R$ 0,00</b></div></section></div><section class="panel"><h2>Custos fixos cadastrados</h2><div id="fixedHistory"></div></section></section>
+<section id="tab-metas" hidden><div class="grid two"><section class="panel"><h2>🎯 Configurar metas</h2><form id="goalForm" class="form"><div class="field"><label>Meta diária (R$)</label><input id="goalDaily" type="number" min="0" step=".01"></div><div class="field"><label>Meta semanal (R$)</label><input id="goalWeekly" type="number" min="0" step=".01"></div><div class="field"><label>Meta mensal (R$)</label><input id="goalMonthly" type="number" min="0" step=".01"></div><div class="field full"><button class="btn primary">Salvar metas</button></div></form></section><section class="panel"><h2>Progresso das metas</h2><div id="goalProgress"></div></section></div><section class="panel"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px"><h2>📆 Relatório customizado</h2><select id="reportPeriod" style="width:auto"><option value="month">Este mês</option><option value="day">Hoje</option><option value="year">Este ano</option><option value="all">Todo histórico</option></select></div><div id="report"></div><div class="actions"><button id="export" class="btn">Exportar backup JSON</button><button id="import" class="btn">Importar backup JSON</button><input id="importFile" type="file" accept=".json,application/json" hidden><button id="csv" class="btn">Exportar registros CSV</button></div></section></section>
+
+<!-- ABA DE TUTORIAL E VOZ -->
+<section id="tab-tutorial" hidden>
+  <div class="panel">
+    <h2>📖 Tutorial Completo — Gestão Motorista Pro</h2>
+    <p class="muted">Aprenda a utilizar todas as ferramentas e conheça os comandos de voz disponíveis.</p>
+    
+    <h3 style="margin-top:16px;color:var(--blue);">1. 🎙️ Como funciona o Assistente de Voz</h3>
+    <p class="sub" style="line-height:1.7">Toque no botão do microfone na aba <b>Início</b>. O assistente fica escutando com tempo estendido para você ditar seus valores com calma enquanto dirige ou descansa, sem precisar digitar.</p>
+    
+    <div style="background:#10192b;border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0;">
+      <h3 style="color:var(--amber);margin-bottom:8px;">🗣️ Palavras e Frases de Comando por Voz:</h3>
+      
+      <div class="line"><div><b>➕ Registrar Ganhos / Faturamento</b><div class="sub">Exemplos: <i>“Ganhei 250 reais hoje”</i> · <i>“Faturei 180 reais na Uber dia 21”</i></div></div></div>
+      <div class="line"><div><b>➖ Registrar Despesas Pagas</b><div class="sub">Exemplos: <i>“Gastei 40 reais de gasolina ontem”</i> · <i>“Paguei 30 reais de óleo”</i></div></div></div>
+      <div class="line"><div><b>🗓️ Contas Futuras (Pendentes)</b><div class="sub">Exemplos: <i>“Conta a pagar 50 reais dia 25”</i> · <i>“Conta a receber 150 reais dia 30”</i></div></div></div>
+      <div class="line"><div><b>✅ Quitar / Dar Baixa em Contas</b><div class="sub">Exemplos: <i>“Conta a pagar 50 reais já paga”</i> · <i>“Paguei a conta de internet 60 reais”</i> · <i>“Recebi os 100 reais pendentes”</i></div></div></div>
+      <div class="line"><div><b>📊 Consultas Rápidas por Voz</b><div class="sub">Exemplos: <i>“Quanto ganhei hoje?”</i> · <i>“Quanto gastei ontem?”</i> · <i>“Quanto ganhei esta semana?”</i> · <i>“Qual o saldo do mês?”</i> · <i>“Quanto passei da meta?”</i></div></div></div>
+    </div>
+
+    <h3 style="margin-top:20px;color:var(--blue);">2. ⏱️ Controle de Turnos</h3>
+    <p class="sub" style="line-height:1.7">Na aba <b>Turnos</b>, inicie seu expediente informando a quilometragem inicial (opcional). Ao terminar, informe a quilometragem final. O app calcula horas trabalhadas, km rodados e faturamento por hora. Agora você também pode <b>Editar</b> ou <b>Excluir (✕)</b> qualquer turno diretamente no histórico de turnos.</p>
+
+    <h3 style="margin-top:20px;color:var(--blue);">3. 🏷️ Custos Fixos</h3>
+    <p class="sub" style="line-height:1.7">Na aba <b>Custos fixos</b>, adicione despesas recorrentes (aluguel da moto, internet, seguro) selecionando a frequência: <b>Semanal, Mensal ou Anual</b>. O app converte tudo automaticamente para o valor mensal equivalente para abater dos seus lucros líquidos.</p>
+
+    <h3 style="margin-top:20px;color:var(--blue);">4. 📊 Filtros por Período e Metas</h3>
+    <p class="sub" style="line-height:1.7">Nas abas <b>Lançamentos</b> e <b>Metas e Relatórios</b>, você pode filtrar suas visualizações por <b>Hoje, Este mês, Este ano ou Todo histórico</b>, além de acompanhar o atingimento das suas metas diárias, semanais e mensais.</p>
+  </div>
+</section>
+
+<section class="panel"><h2>☁️ Dados e backup</h2><p class="muted">Os dados ficam salvos na sua conta e navegador. Exporte o backup JSON regularmente para manter seus registros seguros.</p></section><div class="sub" style="text-align:center;padding:10px">Gestão Motorista Pro · Assistente Inteligente</div></div><div id="toast" class="toast"></div>
+
+<!-- SDKs do Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<script>
+// Configuração do Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyAirzFkuQx3EeD9NR06Cq1p0nD5BCFLUrs",
+  authDomain: "gestaomotorista-eada5.firebaseapp.com",
+  projectId: "gestaomotorista-eada5",
+  storageBucket: "gestaomotorista-eada5.firebasestorage.app",
+  messagingSenderId: "361576950250",
+  appId: "1:361576950250:web:30e0d6da584942504c2a93"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+let isSignUpMode = false;
+const authModal = document.getElementById('authModal');
+const appWrap = document.getElementById('appWrap');
+const authForm = document.getElementById('authForm');
+const authTitle = document.getElementById('authTitle');
+const authSubmitBtn = document.getElementById('authSubmitBtn');
+const toggleAuthModeBtn = document.getElementById('toggleAuthMode');
+const userEmailPill = document.getElementById('userEmailPill');
+const logoutBtn = document.getElementById('logoutBtn');
+
+toggleAuthModeBtn.onclick = () => {
+  isSignUpMode = !isSignUpMode;
+  if(isSignUpMode) {
+    authTitle.textContent = "Criar uma conta";
+    authSubmitBtn.textContent = "Cadastrar";
+    toggleAuthModeBtn.textContent = "Já tem conta? Entre aqui";
+  } else {
+    authTitle.textContent = "Entrar na sua conta";
+    authSubmitBtn.textContent = "Entrar";
+    toggleAuthModeBtn.textContent = "Não tem conta? Cadastre-se";
+  }
+};
+
+authForm.onsubmit = async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('authEmail').value;
+  const password = document.getElementById('authPassword').value;
+  try {
+    if(isSignUpMode) {
+      await auth.createUserWithEmailAndPassword(email, password);
+      alert('Conta criada com sucesso!');
+    } else {
+      await auth.signInWithEmailAndPassword(email, password);
+    }
+  } catch(err) {
+    alert('Erro: ' + err.message);
+  }
+};
+
+logoutBtn.onclick = () => auth.signOut();
+
+auth.onAuthStateChanged(user => {
+  if (user) {
+    authModal.style.display = 'none';
+    appWrap.style.display = 'block';
+    userEmailPill.textContent = '● ' + user.email;
+  } else {
+    authModal.style.display = 'flex';
+    appWrap.style.display = 'none';
+    userEmailPill.textContent = '● Não conectado';
+  }
+});
+</script>
+
+<script>
+(()=> {
+const $=id=>document.getElementById(id), today=()=>{let d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}, monthKey=()=>today().slice(0,7), yearKey=()=>today().slice(0,4), money=n=>Number(n||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let data={entries:[],goalDaily:200,goalWeekly:1200,goalMonthly:5000,fixed:[],shifts:[],openShift:null},recognition=null,finalText='',lastVoiceKey='',lastVoiceAt=0;
+function normalize(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')}
+
+function load(){
+  for(const k of ['gestaoMotoristaProV2','gmvoz','gestaoMotoristaVoz']) try{
+    let x=JSON.parse(localStorage.getItem(k));
+    if(x&&Array.isArray(x.entries)){
+      data={...data,...x};
+      data.fixed=Array.isArray(data.fixed)?data.fixed:[];
+      data.shifts=Array.isArray(data.shifts)?data.shifts:[];
+      if(!('openShift'in data))data.openShift=null;
+      
+      // Correção automática: garante ID para turnos antigos
+      data.shifts.forEach((s, idx)=>{
+        if(!s.id) s.id = 'shift_' + idx + '_' + Date.now().toString(36);
+      });
+      break;
+    }
+  }catch{}
+}
+
+function toast(s){$('toast').textContent=s;$('toast').classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('toast').classList.remove('show'),3200)}
+function save(){try{localStorage.setItem('gestaoMotoristaProV2',JSON.stringify(data));$('saveState').textContent='● Salvo neste aparelho'}catch{$('saveState').textContent='Erro ao salvar';toast('Não foi possível salvar. Exporte um backup.')}}
+function sum(a,fn){return a.filter(fn).reduce((n,x)=>n+Number(x.amount||0),0)}
+function paid(x){return (x.status||'pago')!=='pendente'}
+function inMonth(x){return String(x.date||'').slice(0,7)===monthKey()}
+function gainsBetween(a,b){return sum(data.entries,x=>x.kind==='ganho'&&paid(x)&&x.date>=a&&x.date<=b)}
+function calcFixedMonthly(){return data.fixed.reduce((n,x)=>n+Number(x.amount||0)*(x.freq==='semanal'?52/12:x.freq==='anual'?1/12:1),0)}
+function totals(){let m=data.entries.filter(x=>inMonth(x)&&paid(x)),g=sum(m,x=>x.kind==='ganho'),e=sum(m,x=>x.kind==='despesa'),fixed=calcFixedMonthly(),shifts=data.shifts.filter(x=>x.end&&String(x.start).slice(0,7)===monthKey()),hours=shifts.reduce((n,x)=>n+Math.max(0,(new Date(x.end)-new Date(x.start))/3600000),0);return{m,g,e,fixed,hours,net:g-e-fixed}}
+function dateFromSpeech(s){let t=normalize(s),d=new Date();if(/\banteontem\b/.test(t))d.setDate(d.getDate()-2);else if(/\bontem\b/.test(t))d.setDate(d.getDate()-1);else{let m=t.match(/\bdia\s+(\d{1,2})(?:\s+de\s+([a-z]+))?(?:\s+de\s+(\d{4}))?/);if(m){let months={janeiro:0,fevereiro:1,marco:2,abril:3,maio:4,junho:5,julho:6,agosto:7,setembro:8,outubro:9,novembro:10,dezembro:11},mo=m[2]?months[m[2]]:d.getMonth(),yr=m[3]?+m[3]:d.getFullYear();if(mo===undefined)mo=d.getMonth();d=new Date(yr,mo,+m[1]);if(!m[2]&&!m[3]&&d<new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate()))d.setMonth(d.getMonth()+1)}}return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function parseSpeech(s){let t=normalize(s),hasPaid=/\b(ja paga|ja pago|paguei|pago hoje|foi pago|acabei de pagar|ja recebi|recebi agora|recebido)\b/.test(t),isPending=/\b(a pagar|vou pagar|para pagar|pagar dia|a receber|vou receber|para receber|receber dia|vence|vencimento|conta futura|pendente)\b/.test(t)&&!hasPaid,isExpense=/\b(gastei|despesa|paguei|pagar|abasteci|gasolina|combustivel|manutencao|oleo|aluguel|comprei|conta a pagar|conta pagar)\b/.test(t)&&!/\b(a receber|conta a receber)\b/.test(t),isIncome=!isExpense&&/\b(ganhei|faturei|recebi|receber|conta a receber|a receber|entrada)\b/.test(t),query=/\b(quanto|resumo|consultar|consulte|como estou|saldo|meta|balanco|balanço)\b/.test(t)&&!/\b(ganhei|faturei|recebi|gastei|paguei|pagar|conta a pagar|conta a receber)\s+\d/.test(t);
+let amount=null;for(let re of [/(?:r\$|reais?)\s*(\d{1,7}(?:[.,]\d{1,2})?)/,/(\d{1,7}[.,]\d{1,2})\s*(?:reais?|r\$)/,/\b(\d{1,7})\s*reais?\b/,/\b(?:ganhei|faturei|recebi|gastei|paguei|pagar)\s+(\d{1,7}(?:[.,]\d{1,2})?)\b/]){let m=t.match(re);if(m){amount=Number(m[1].replace(',','.'));break}}
+if(amount===null&&!query){let m=t.match(/\b(\d{1,7})\b/);if(m)amount=+m[1]}
+let platform=/\b99\b|noventa e nove/.test(t)?'99':/particular/.test(t)?'Particular':/outra/.test(t)?'Outra':'Uber';
+let category=isExpense?(/gasolina|combustivel|abasteci/.test(t)?'Combustível':/oleo|manutencao/.test(t)?'Manutenção':/internet|celular/.test(t)?'Internet/celular':/aluguel|mottu|moto/.test(t)?'Aluguel da moto':/conta/.test(t)?'Conta a pagar':'Despesa por voz'):(/conta/.test(t)?'Conta a receber':/hoje/.test(t)?'Ganhos do dia':'Ganhos por voz');
+return{query,kind:isExpense?'despesa':'ganho',amount,platform,category,text:t,date:dateFromSpeech(s),status:isPending?'pendente':'pago',hasPaid}}
+function answerQuery(s){let t=normalize(s),d=dateFromSpeech(s),tg=gainsBetween(d,d),te=sum(data.entries,x=>x.kind==='despesa'&&paid(x)&&x.date===d),msg='';if(/ontem|anteontem/.test(t))msg='Em '+new Date(d+'T12:00:00').toLocaleDateString('pt-BR')+': ganhos '+money(tg)+', despesas pagas '+money(te)+', saldo '+money(tg-te)+'.';else if(/passou|passei|acima|ultrapassei/.test(t)){let extra=Math.max(0,tg-data.goalDaily);msg=extra>0?'Você passou da meta diária em '+money(extra)+'. Ganhos: '+money(tg)+'. Meta: '+money(data.goalDaily)+'.':'Você ainda não passou da meta. Falta '+money(Math.max(0,data.goalDaily-tg))+'. Ganhos: '+money(tg)+'. Meta: '+money(data.goalDaily)+'.'}else if(/semana/.test(t)){let st=new Date();st.setDate(st.getDate()-((st.getDay()+6)%7));let ws=st.getFullYear()+'-'+String(st.getMonth()+1).padStart(2,'0')+'-'+String(st.getDate()).padStart(2,'0'),wg=gainsBetween(ws,today());msg='Ganhos desta semana: '+money(wg)+'. Meta semanal: '+money(data.goalWeekly)+'. '+(wg>=data.goalWeekly?'Passou da meta em '+money(wg-data.goalWeekly):'Falta '+money(data.goalWeekly-wg))+'.'}else if(/mes|mensal/.test(t)){let z=totals();msg='Balanço do mês: ganhos '+money(z.g)+', despesas pagas '+money(z.e)+', custos fixos provisionados '+money(z.fixed)+'. Saldo operacional '+money(z.net)+'.'}else if(/gastei|despesa/.test(t))msg='Despesas pagas em '+new Date(d+'T12:00:00').toLocaleDateString('pt-BR')+': '+money(te)+'.';else msg='Hoje: ganhos '+money(tg)+', despesas pagas '+money(te)+', saldo '+money(tg-te)+'. Meta '+money(data.goalDaily)+'. '+(tg>=data.goalDaily?'Você passou da meta em '+money(tg-data.goalDaily):'Falta '+money(data.goalDaily-tg))+'.';showVoice(msg)}
+function showVoice(msg){$('transcript').textContent=msg;$('voiceTitle').textContent='Consulta respondida';toast(msg);if('speechSynthesis'in window){let u=new SpeechSynthesisUtterance(msg);u.lang='pt-BR';speechSynthesis.cancel();speechSynthesis.speak(u)}}
+function voiceResult(s){$('transcript').textContent=s;if(!s)return;let p=parseSpeech(s);if(p.query){answerQuery(s);return}if(p.amount===null||!Number.isFinite(p.amount)||p.amount<=0){$('voiceTitle').textContent='Fala reconhecida — confira os dados';toast('Não identifiquei o valor. Tente “Paguei 30 reais de gasolina” ou use o formulário.');$('kind').value=p.kind;$('platform').value=p.platform;$('category').value=p.category;return}
+let key=normalize(s).trim(),now=Date.now();if(key===lastVoiceKey&&now-lastVoiceAt<8000){toast('Esse comando já foi processado.');return}lastVoiceKey=key;lastVoiceAt=now;
+let action=/\b(quitar|baixar|marcar como paga|marcar como pago|ja paga|ja pago|paguei|foi pago|acabei de pagar)\b/.test(p.text);
+if(action){let idx=data.entries.findIndex(x=>x.kind==='despesa'&&x.status==='pendente'&&Math.abs(Number(x.amount)-p.amount)<.01);if(idx>=0){data.entries[idx].status='pago';data.entries[idx].date=today();data.entries[idx].paidAt=new Date().toISOString();if(p.category&&!/conta a pagar/.test(p.category))data.entries[idx].category=p.category;save();render();showVoice('Conta de '+money(p.amount)+' marcada como paga hoje.');return}}
+data.entries.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2),kind:p.kind,platform:p.platform,amount:p.amount,date:p.date||today(),status:p.status||'pago',category:p.category,km:0,created:new Date().toISOString()});save();render();let msg=(p.status==='pendente'?(p.kind==='ganho'?'Conta a receber':'Conta a pagar'):(p.kind==='ganho'?'Ganho':'Despesa')+' registrado')+': '+money(p.amount)+' · data '+new Date((p.date||today())+'T12:00:00').toLocaleDateString('pt-BR')+(p.status==='pendente'?' · pendente':' · confirmado');showVoice(msg)}
+function startVoice(){let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){toast('Reconhecimento de voz não suportado neste navegador. Tente Chrome.');return}try{if(recognition)recognition.stop()}catch{}recognition=new SR();recognition.lang='pt-BR';recognition.interimResults=true;recognition.continuous=false;finalText='';recognition.onstart=()=>{$('mic').classList.add('on');$('stop').disabled=false;$('voiceTitle').textContent='Escutando… fale seu comando';$('transcript').textContent='Aguardando sua fala…'};recognition.onresult=e=>{let s='';for(let i=e.resultIndex;i<e.results.length;i++)s+=e.results[i][0].transcript+' ';if(e.results[e.results.length-1].isFinal)finalText=s.trim();$('transcript').textContent=s.trim()};recognition.onerror=e=>toast('Erro no microfone: '+e.error);recognition.onend=()=>{$('mic').classList.remove('on');$('stop').disabled=true;if(finalText.trim())voiceResult(finalText.trim());else if(!$('transcript').textContent.includes('Consulta respondida'))$('voiceTitle').textContent='Toque no microfone e fale'};try{recognition.start()}catch{toast('Não consegui ligar o microfone')}}function stopVoice(){if(recognition)try{recognition.stop()}catch{}}
+function addEntry(e){e.preventDefault();let amount=+$('amount').value;if(!(amount>0))return toast('Informe um valor válido');data.entries.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2),kind:$('kind').value,platform:$('platform').value,amount,date:$('date').value||today(),status:$('entryStatus').value,category:$('category').value.trim(),km:+$('km').value||0,created:new Date().toISOString()});save();render();$('amount').value='';$('category').value='';$('km').value='';toast('Lançamento salvo!')}
+
+function startShift(){
+  if(data.openShift) return toast('Já existe um turno aberto. Encerre-o antes de iniciar outro.');
+  let km=$('startKm').value===''?null:Number($('startKm').value);
+  data.openShift={
+    id: 'shift_' + Date.now().toString(36) + Math.random().toString(36).slice(2),
+    start: new Date().toISOString(),
+    startKm: km
+  };
+  save(); render(); toast('Turno iniciado! O horário foi registrado.');
+}
+
+function endShift(){
+  if(!data.openShift) return toast('Não há turno aberto.');
+  let endKm=$('endKm').value===''?null:Number($('endKm').value);
+  if(data.openShift.startKm!==null&&endKm===null) return toast('Informe a quilometragem final.');
+  if(endKm!==null&&data.openShift.startKm!==null&&endKm<data.openShift.startKm) return toast('A quilometragem final não pode ser menor que a inicial.');
+  data.shifts.push({...data.openShift, end: new Date().toISOString(), endKm});
+  data.openShift=null; $('startKm').value=''; $('endKm').value='';
+  save(); render(); toast('Turno encerrado e salvo no histórico!');
+}
+
+function getMonday(d) {
+  let date = new Date(d);
+  let day = date.getDay();
+  let diff = date.getDate() - day + (day === 0 ? -6 : 1);
+  return new Date(date.setDate(diff));
+}
+
+function buildWeekOptions() {
+  let select = $('weekSelector');
+  if(!select) return;
+  let currVal = select.value;
+  select.innerHTML = '';
+
+  let currMonday = getMonday(new Date());
+
+  for(let offset = -4; offset <= 1; offset++) {
+    let monday = new Date(currMonday);
+    monday.setDate(monday.getDate() + (offset * 7));
+    let sunday = new Date(monday);
+    sunday.setDate(sunday.getDate() + 6);
+
+    let mStr = String(monday.getDate()).padStart(2,'0') + '/' + String(monday.getMonth()+1).padStart(2,'0');
+    let sStr = String(sunday.getDate()).padStart(2,'0') + '/' + String(sunday.getMonth()+1).padStart(2,'0');
+    let isoMonday = monday.getFullYear() + '-' + String(monday.getMonth()+1).padStart(2,'0') + '-' + String(monday.getDate()).padStart(2,'0');
+
+    let label = (offset === 0 ? 'Esta Semana' : offset === 1 ? 'Próxima Semana' : `Semana de ${mStr}`) + ` (${mStr} a ${sStr})`;
+    let opt = document.createElement('option');
+    opt.value = isoMonday;
+    opt.textContent = label;
+    if(offset === 0 && !currVal) opt.selected = true;
+    else if(currVal === isoMonday) opt.selected = true;
+    select.appendChild(opt);
+  }
+}
+
+function render(){
+  let t=totals(),d=today(),todayG=sum(data.entries,x=>x.kind==='ganho'&&paid(x)&&x.date===d),todayE=sum(data.entries,x=>x.kind==='despesa'&&paid(x)&&x.date===d),todayNet=todayG-todayE;
+  $('todayGain').textContent=money(todayG);$('todayExpense').textContent=money(todayE);$('todayNet').textContent=money(todayNet);$('todayNet').className='value '+(todayNet>=0?'positive':'negative');$('todayCount').textContent=data.entries.filter(x=>x.kind==='ganho'&&paid(x)&&x.date===d).length+' registros';
+  $('monthNet').textContent=money(t.net);$('monthNet').className='value '+(t.net>=0?'positive':'negative');$('monthGain').textContent=money(t.g);$('monthExpense').textContent=money(t.e);$('fixedTotal').textContent=money(t.fixed);$('monthHours').textContent=t.hours.toFixed(1)+' h';$('hourRate').textContent=money(t.hours?t.g/t.hours:0);
+  $('dayGoalValue').textContent=money(data.goalDaily);$('dayGoalText').textContent=todayG>=data.goalDaily?'Meta atingida! Passou '+money(todayG-data.goalDaily):'Falta '+money(data.goalDaily-todayG);$('dayGoalBar').style.width=(data.goalDaily?Math.min(100,todayG/data.goalDaily*100):0)+'%';
+
+  buildWeekOptions();
+  let selectedMondayIso = $('weekSelector').value || getMonday(new Date()).toISOString().slice(0,10);
+  let parts = selectedMondayIso.split('-');
+  let mondayDate = new Date(parts[0], parts[1]-1, parts[2]);
+
+  let days = [];
+  for(let i=0; i<7; i++) {
+    let dt = new Date(mondayDate);
+    dt.setDate(dt.getDate() + i);
+    let key = dt.getFullYear() + '-' + String(dt.getMonth()+1).padStart(2,'0') + '-' + String(dt.getDate()).padStart(2,'0');
+    days.push({
+      key,
+      label: dt.toLocaleDateString('pt-BR',{weekday:'short'}).replace('.',''),
+      subLabel: String(dt.getDate()).padStart(2,'0') + '/' + String(dt.getMonth()+1).padStart(2,'0'),
+      g: sum(data.entries, x=>x.kind==='ganho'&&paid(x)&&x.date===key)
+    });
+  }
+
+  let mx = Math.max(1, ...days.map(x=>x.g));
+  $('chart').innerHTML = days.map(x => '<div class="colwrap"><b>' + (x.g ? money(x.g).replace(/\s/g,'') : '—') + '</b><div class="col" style="height:' + Math.max(3, x.g / mx * 100) + '%"></div><small>' + esc(x.label) + '</small><small style="font-size:9px;color:var(--muted)">' + esc(x.subLabel) + '</small></div>').join('');
+
+  let days7Last = [];
+  for(let i=6; i>=0; i--) {
+    let dt = new Date(); dt.setDate(dt.getDate() - i);
+    let key = dt.getFullYear() + '-' + String(dt.getMonth()+1).padStart(2,'0') + '-' + String(dt.getDate()).padStart(2,'0');
+    days7Last.push({
+      key, label: dt.toLocaleDateString('pt-BR',{weekday:'short'}).replace('.',''),
+      g: sum(data.entries, x=>x.kind==='ganho'&&paid(x)&&x.date===key),
+      e: sum(data.entries, x=>x.kind==='despesa'&&paid(x)&&x.date===key)
+    });
+  }
+  let bm = Math.max(1, ...days7Last.flatMap(x=>[x.g, x.e]));
+  $('balanceChart').innerHTML = days7Last.map(x => '<div class="colwrap"><div style="display:flex;align-items:end;justify-content:center;gap:3px;height:110px"><div class="col" title="Ganhos ' + money(x.g) + '" style="height:' + Math.max(2, x.g / bm * 100) + '%;width:42%;background:linear-gradient(#42d6a0,#178b70)"></div><div class="col" title="Despesas ' + money(x.e) + '" style="height:' + Math.max(2, x.e / bm * 100) + '%;width:42%;background:linear-gradient(#ff7188,#b83e58)"></div></div><small>' + x.label + '</small></div>').join('');
+
+  let pend=data.entries.filter(x=>x.status==='pendente'),receivable=sum(pend,x=>x.kind==='ganho'),payable=sum(pend,x=>x.kind==='despesa');$('balanceValue').textContent=money(t.net);$('balanceValue').className='value '+(t.net>=0?'positive':'negative');$('balanceRealized').textContent=money(t.net);$('balanceReceivable').textContent=money(receivable);$('balancePayable').textContent=money(payable);$('balanceProjected').textContent=money(t.net+receivable-payable);
+  let fi=pend.filter(x=>x.kind==='ganho').sort((a,b)=>a.date.localeCompare(b.date)),fe=pend.filter(x=>x.kind==='despesa').sort((a,b)=>a.date.localeCompare(b.date));const futureHTML=(arr,kind)=>arr.length?arr.map(x=>'<div class="line"><div><b>'+esc(x.category|| (kind==='ganho'?'A receber':'A pagar'))+'</b><div class="sub">Vence '+esc(x.date)+' · '+money(x.amount)+'</div></div><button class="btn primary" data-settle="'+x.id+'">Marcar '+(kind==='ganho'?'recebido':'pago')+'</button></div>').join(''):'<div class="empty">Nenhuma conta pendente.</div>';$('futureIncome').innerHTML=futureHTML(fi,'ganho');$('futureExpense').innerHTML=futureHTML(fe,'despesa');
+  let ent=[...data.entries].sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(b.created||'').localeCompare(a.created||'')),ft=$('filterTime').value,fy=$('filter').value;if(ft==='month')ent=ent.filter(inMonth);if(ft==='day')ent=ent.filter(x=>x.date===d);if(ft==='year')ent=ent.filter(x=>String(x.date||'').slice(0,4)===yearKey());if(fy==='gains')ent=ent.filter(x=>x.kind==='ganho');if(fy==='expenses')ent=ent.filter(x=>x.kind==='despesa');if(fy==='pending')ent=ent.filter(x=>x.status==='pendente');
+  $('history').innerHTML=ent.length?ent.map(x=>'<div class="line"><div><b>'+ (x.kind==='ganho'?'＋ ':'− ')+esc(x.category||(x.kind==='ganho'?'Ganho':'Despesa'))+'</b><div class="sub">'+esc(x.date)+' · '+esc(x.platform||'')+' · '+(x.status==='pendente'?'PENDENTE':'CONFIRMADO')+'</div></div><div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap"><b class="'+(x.kind==='ganho'?'positive':'negative')+'">'+(x.kind==='ganho'?'+':'−')+money(x.amount)+'</b>'+(x.status==='pendente'?'<button class="btn primary" data-settle="'+x.id+'">Confirmar</button>':'')+'<button class="btn" data-del="'+x.id+'">✕</button></div></div>').join(''):'<div class="empty">Nenhum registro encontrado.</div>';
+  let fm=calcFixedMonthly();$('fixedSummary').textContent=money(fm);$('fixedDaily').textContent=money(fm/30);$('fixedWeekly').textContent=money(fm/ (52/12));$('fixedHistory').innerHTML=data.fixed.length?data.fixed.map(x=>'<div class="line"><div><b>'+esc(x.name)+'</b><div class="sub">Frequência: '+esc(x.freq||'mensal')+'</div></div><div style="display:flex;gap:8px;align-items:center"><b>'+money(x.amount)+'</b><button class="btn" data-fixed-del="'+x.id+'">✕</button></div></div>').join(''):'<div class="empty">Nenhum custo fixo cadastrado.</div>';
+  let repTime=$('reportPeriod').value,repEnt=data.entries.filter(paid);if(repTime==='month')repEnt=repEnt.filter(inMonth);if(repTime==='day')repEnt=repEnt.filter(x=>x.date===d);if(repTime==='year')repEnt=repEnt.filter(x=>String(x.date||'').slice(0,4)===yearKey());let rg=sum(repEnt,x=>x.kind==='ganho'),re=sum(repEnt,x=>x.kind==='despesa'),rf=repTime==='month'?fm:repTime==='year'?fm*12:repTime==='day'?fm/30:fm;let rn=rg-re-rf;$('report').innerHTML='<div class="line"><span>Ganhos recebidos</span><b class="positive">'+money(rg)+'</b></div><div class="line"><span>Despesas pagas</span><b class="negative">'+money(re)+'</b></div><div class="line"><span>Provisão de custos fixos para o período</span><b>'+money(rf)+'</b></div><div class="line"><span>Resultado líquido estimado</span><b class="'+(rn>=0?'positive':'negative')+'">'+money(rn)+'</b></div>';
+  let weekStart=new Date();weekStart.setDate(weekStart.getDate()-((weekStart.getDay()+6)%7));let wk=weekStart.getFullYear()+'-'+String(weekStart.getMonth()+1).padStart(2,'0')+'-'+String(weekStart.getDate()).padStart(2,'0'),wg=gainsBetween(wk,d);$('goalProgress').innerHTML=[['Diária',todayG,data.goalDaily],['Semanal',wg,data.goalWeekly],['Mensal',t.g,data.goalMonthly]].map(a=>'<div style="margin:14px 0"><div class="line"><span>'+a[0]+'</span><b>'+money(a[1])+' / '+money(a[2])+'</b></div><div class="bar"><span style="width:'+(a[2]?Math.min(100,a[1]/a[2]*100):0)+'%"></span></div><div class="sub">'+(a[1]>=a[2]?'Passou da meta em '+money(a[1]-a[2]):'Falta '+money(a[2]-a[1]))+'</div></div>').join('');
+  
+  let completed=data.shifts.filter(x=>x.end),monthShifts=completed.filter(x=>String(x.start).slice(0,7)===monthKey()),hrs=monthShifts.reduce((n,x)=>n+(new Date(x.end)-new Date(x.start))/3600000,0),kms=completed.reduce((n,x)=>n+(x.startKm!=null&&x.endKm!=null?Math.max(0,x.endKm-x.startKm):0),0);
+  $('shiftStatus').textContent=data.openShift?'Turno aberto desde '+new Date(data.openShift.start).toLocaleString('pt-BR'):'Nenhum turno aberto';
+  $('startShift').disabled=!!data.openShift;$('endShift').disabled=!data.openShift;
+  $('shiftCount').textContent=completed.length;$('shiftHours').textContent=hrs.toFixed(1)+' h';$('shiftRate').textContent=money(hrs?t.g/hrs:0);$('shiftKm').textContent=kms.toLocaleString('pt-BR',{maximumFractionDigits:1})+' km';
+  
+  $('shiftHistory').innerHTML=completed.length?[...completed].reverse().map(x=>{
+    let km=x.startKm!=null&&x.endKm!=null?Math.max(0,x.endKm-x.startKm)+' km':'km não informado',h=((new Date(x.end)-new Date(x.start))/3600000);
+    let shGains=sum(data.entries,e=>e.kind==='ganho'&&paid(e)&&e.created>=x.start&&e.created<=x.end);
+    return '<div class="line"><div><b>'+new Date(x.start).toLocaleDateString('pt-BR')+'</b><div class="sub">'+new Date(x.start).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+' – '+new Date(x.end).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+' · '+km+' · '+h.toFixed(2)+' h</div></div><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"><b>'+money(shGains)+'</b><button class="btn" data-shift-edit="'+x.id+'" style="padding:4px 8px;font-size:11px">Editar</button><button class="btn danger" data-shift-del="'+x.id+'" style="padding:4px 8px;font-size:11px">✕</button></div></div>'
+  }).join(''):'<div class="empty">Nenhum turno concluído ainda.</div>';
+}
+
+function settle(id){let x=data.entries.find(x=>String(x.id)===String(id));if(!x||x.status!=='pendente')return;x.status='pago';x.date=today();x.paidAt=new Date().toISOString();save();render();toast((x.kind==='ganho'?'Recebimento':'Pagamento')+' confirmado hoje: '+money(x.amount))}
+
+$('mic').onclick=startVoice;$('stop').onclick=stopVoice;$('entryForm').addEventListener('submit',addEntry);
+$('filter').onchange=render;$('filterTime').onchange=render;$('reportPeriod').onchange=render;
+$('weekSelector').onchange=render;
+
+$('history').onclick=e=>{let s=e.target.closest('[data-settle]'),b=e.target.closest('[data-del]');if(s)settle(s.dataset.settle);if(b&&confirm('Excluir este registro definitivamente?')){data.entries=data.entries.filter(x=>String(x.id)!==b.dataset.del);save();render()}};
+document.querySelector('.wrap').addEventListener('click',e=>{let s=e.target.closest('[data-settle]');if(s)settle(s.dataset.settle)});
+
+// Gerenciar Edição e Exclusão Corrigido com busca por ID e Índice
+$('shiftHistory').onclick=e=>{
+  let del=e.target.closest('[data-shift-del]');
+  let edit=e.target.closest('[data-shift-edit]');
+  
+  if(del){
+    let idToDelete = del.dataset.shiftDel;
+    if(confirm('Excluir este turno do histórico?')){
+      data.shifts = data.shifts.filter(x => String(x.id) !== String(idToDelete));
+      save(); render(); toast('Turno excluído definitivamente.');
+    }
+  }
+  
+  if(edit){
+    let idToEdit = edit.dataset.shiftEdit;
+    let sh = data.shifts.find(x => String(x.id) === String(idToEdit));
+    if(sh){
+      let sk = prompt('Quilometragem inicial do turno:', sh.startKm ?? '');
+      if(sk === null) return;
+      let ek = prompt('Quilometragem final do turno:', sh.endKm ?? '');
+      if(ek === null) return;
+      
+      sh.startKm = sk.trim() === '' ? null : Number(sk);
+      sh.endKm = ek.trim() === '' ? null : Number(ek);
+      save(); render(); toast('Turno atualizado com sucesso!');
+    }
+  }
+};
+
+$('fixedForm').onsubmit=e=>{e.preventDefault();let amount=+$('fixedAmount').value;if(!(amount>0))return toast('Valor inválido');data.fixed.push({id:Date.now().toString(36),name:$('fixedName').value.trim(),amount,freq:$('fixedFreq').value});save();$('fixedName').value='';$('fixedAmount').value='';render();toast('Custo fixo adicionado')};$('fixedHistory').onclick=e=>{let b=e.target.closest('[data-fixed-del]');if(b&&confirm('Excluir este custo fixo?')){data.fixed=data.fixed.filter(x=>x.id!==b.dataset.fixedDel);save();render()}};$('startShift').onclick=startShift;$('endShift').onclick=endShift;
+$('goalForm').onsubmit=e=>{e.preventDefault();data.goalDaily=Math.max(0,+$('goalDaily').value||0);data.goalWeekly=Math.max(0,+$('goalWeekly').value||0);data.goalMonthly=Math.max(0,+$('goalMonthly').value||0);save();render();toast('Metas salvas')};
+$('export').onclick=()=>{let blob=new Blob([JSON.stringify({version:4,exportedAt:new Date().toISOString(),...data},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='gestao-motorista-backup-'+today()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};$('import').onclick=()=>$('importFile').click();$('importFile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let x=JSON.parse(await f.text());if(!Array.isArray(x.entries))throw Error();if(confirm('Substituir os dados atuais pelo backup?')){data={...data,...x,entries:x.entries,fixed:Array.isArray(x.fixed)?x.fixed:[],shifts:Array.isArray(x.shifts)?x.shifts:[],openShift:x.openShift||null};save();fillGoals();render();toast('Backup importado!')}}catch{toast('Arquivo inválido')}finally{e.target.value=''}};$('csv').onclick=()=>{let rows=[['data','tipo','status','plataforma','valor','categoria','km'],...data.entries.map(x=>[x.date,x.kind,x.status||'pago',x.platform,x.amount,x.category,x.km])],csv=rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\r\n'),blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='registros-motorista-'+today()+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+
+document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));for(let id of ['inicio','lancamentos','turnos','custos','metas','tutorial'])$('tab-'+id).hidden=id!==b.dataset.tab});
+document.querySelectorAll('[data-goto-tutorial]').forEach(b=>b.onclick=()=>{document.querySelector('[data-tab="tutorial"]').click();window.scrollTo({top:0,behavior:'smooth'});});
+
+function fillGoals(){$('goalDaily').value=data.goalDaily;$('goalWeekly').value=data.goalWeekly;$('goalMonthly').value=data.goalMonthly}
+load();$('date').value=today();fillGoals();render();
+})();
+</script></body></html>
