@@ -37,7 +37,7 @@
     <div style="font-size:40px;margin-bottom:10px;">🔒</div>
     <h2 style="margin-bottom:10px;">Assinatura Inativa ou Vencida</h2>
     <p class="muted" style="font-size:14px;line-height:1.6;margin-bottom:20px;">
-      Para ter acesso completo ao sistema de gestão, renovações e assistente por voz, faça o pagamento da sua mensalidade via Pix.
+      Seu período de teste ou assinatura expirou. Para ter acesso completo ao sistema de gestão e assistente por voz, faça o pagamento da mensalidade via Pix.
     </p>
     
     <div style="background:#0b1425;border:1px solid var(--line);padding:15px;border-radius:12px;margin-bottom:20px;text-align:left;">
@@ -46,13 +46,13 @@
       
       <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">CHAVE PIX:</div>
       <div style="font-size:13px;font-weight:bold;background:#16233a;padding:8px 10px;border-radius:8px;word-break:break-all;display:flex;justify-content:space-between;align-items:center;">
-        <span id="pixKeyText">seu-email-ou-pix@aqui.com</span>
-        <button onclick="navigator.clipboard.writeText(document.getElementById('pixKeyText').innerText);alert('Chave Pix copiada!');" class="btn" style="padding:4px 8px;font-size:11px;">Copiar</button>
+        <span id="pixKeyText">21981773804</span>
+        <button onclick="navigator.clipboard.writeText('21981773804');alert('Chave Pix copiada!');" class="btn" style="padding:4px 8px;font-size:11px;">Copiar</button>
       </div>
     </div>
 
     <div style="display:flex;flex-direction:column;gap:10px;">
-      <a id="btnWhatsapp" href="https://wa.me/5521999999999?text=Ol%C3%A1!%20Fiz%20o%20Pix%20da%20mensalidade%20do%20Gest%C3%A3o%20Motorista%20Pro%20e%20quero%20liberar%20meu%20acesso." target="_blank" class="btn primary" style="text-decoration:none;display:block;padding:12px;">
+      <a id="btnWhatsapp" href="https://wa.me/5521981773804?text=Ol%C3%A1!%20Fiz%20o%20Pix%20da%20mensalidade%20do%20Gest%C3%A3o%20Motorista%20Pro%20e%20quero%20liberar%20meu%20acesso." target="_blank" class="btn primary" style="text-decoration:none;display:block;padding:12px;">
         📲 Enviar comprovante no WhatsApp
       </a>
       <button id="subLogoutBtn" class="btn danger">Sair da conta</button>
@@ -71,10 +71,10 @@
   </div>
 </header>
 
-<!-- Banner de Alerta de Vencimento Próximo (Aparece se faltar 5 dias ou menos) -->
+<!-- Banner de Alerta de Vencimento Próximo -->
 <div id="expiryNotice" style="display:none;background:#302817;border:1px solid #69532a;color:#ffe1a0;padding:12px 16px;border-radius:12px;margin-bottom:14px;font-size:13px;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
   <span>⚠️ <b>Sua assinatura vence em breve!</b> <span id="expiryNoticeText"></span> Renove antecipadamente via Pix para não perder o acesso.</span>
-  <a id="renewLink" href="https://wa.me/5521999999999?text=Ol%C3%A1!%20Quero%20renovar%20minha%20assinatura%20do%20Gest%C3%A3o%20Motorista%20Pro." target="_blank" class="btn" style="background:#ffd17b;color:#10192b;font-weight:bold;border:0;padding:6px 12px;font-size:12px;text-decoration:none;">Renovar Acesso</a>
+  <a id="renewLink" href="https://wa.me/5521981773804?text=Ol%C3%A1!%20Quero%20renovar%20minha%20assinatura%20do%20Gest%C3%A3o%20Motorista%20Pro." target="_blank" class="btn" style="background:#ffd17b;color:#10192b;font-weight:bold;border:0;padding:6px 12px;font-size:12px;text-decoration:none;">Renovar Acesso</a>
 </div>
 
 <nav class="tabs"><button class="tab active" data-tab="inicio">Visão geral</button><button class="tab" data-tab="lancamentos">Lançamentos</button><button class="tab" data-tab="turnos">Turnos</button><button class="tab" data-tab="custos">Custos fixos</button><button class="tab" data-tab="metas">Metas e relatórios</button><button class="tab" data-tab="tutorial">📖 Tutorial e Voz</button></nav>
@@ -223,7 +223,7 @@ toggleAuthModeBtn.onclick = () => {
   isSignUpMode = !isSignUpMode;
   if(isSignUpMode) {
     authTitle.textContent = "Criar uma conta";
-    authSubmitBtn.textContent = "Cadastrar";
+    authSubmitBtn.textContent = "Cadastrar (3 dias grátis)";
     toggleAuthModeBtn.textContent = "Já tem conta? Entre aqui";
   } else {
     authTitle.textContent = "Entrar na sua conta";
@@ -239,13 +239,21 @@ authForm.onsubmit = async (e) => {
   try {
     if(isSignUpMode) {
       const res = await auth.createUserWithEmailAndPassword(email, password);
+      
+      // CALCULA 3 DIAS GRÁTIS A PARTIR DE HOJE
+      let dtTrial = new Date();
+      dtTrial.setDate(dtTrial.getDate() + 3);
+      let trialExpiryIso = dtTrial.toISOString().slice(0, 10);
+
+      // Salva a conta com 3 dias grátis e status ativo
       await db.collection('users').doc(res.user.uid).set({
         email: email,
-        statusAssinatura: "pendente",
-        dataVencimento: "2000-01-01",
+        statusAssinatura: "ativo",
+        dataVencimento: trialExpiryIso,
         entries: [], fixed: [], shifts: []
       }, { merge: true });
-      alert('Conta criada com sucesso!');
+
+      alert('Conta criada com sucesso! Você ganhou 3 dias de teste grátis.');
     } else {
       await auth.signInWithEmailAndPassword(email, password);
     }
@@ -270,7 +278,6 @@ auth.onAuthStateChanged(async user => {
       const vencimento = uData.dataVencimento || "2000-01-01";
       const status = uData.statusAssinatura || "pendente";
 
-      // Formata a data de YYYY-MM-DD para DD/MM/YYYY
       let dateParts = vencimento.split('-');
       let dateFormatted = dateParts.length === 3 ? `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}` : vencimento;
 
@@ -279,16 +286,13 @@ auth.onAuthStateChanged(async user => {
         subModal.style.display = 'none';
         appWrap.style.display = 'block';
         userEmailPill.textContent = '● ' + user.email;
-        
-        // Atualiza a pílula do topo com a data de vencimento
         subStatusPill.textContent = '● Acesso até ' + dateFormatted;
 
-        // Lógica para avisar se faltarem 5 dias ou menos para vencer
         const dHoje = new Date(hoje + 'T00:00:00');
         const dVenc = new Date(vencimento + 'T00:00:00');
         const diffDias = Math.ceil((dVenc - dHoje) / (1000 * 60 * 60 * 24));
 
-        if (diffDias <= 5 && diffDias >= 0) {
+        if (diffDias <= 3 && diffDias >= 0) {
           expiryNotice.style.display = 'flex';
           expiryNoticeText.textContent = diffDias === 0 ? 'Vence HOJE!' : `Faltam apenas ${diffDias} dia(s) (${dateFormatted}).`;
         } else {
