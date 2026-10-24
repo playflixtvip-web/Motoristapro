@@ -5,14 +5,13 @@
 <title>Gestão Motorista Pro — Assistente</title>
 <style>
 :root{color-scheme:dark;--bg:#090e1b;--panel:#121d32;--line:#2c3b59;--text:#eef4ff;--muted:#9cacc7;--blue:#7890ff;--green:#42d6a0;--red:#ff7188;--amber:#ffd17b}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0,#1c2c52,transparent 36%),var(--bg);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif}.wrap{max-width:1100px;margin:auto;padding:16px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}.brand{display:flex;align-items:center;gap:12px}.logo{height:48px;width:48px;border-radius:15px;background:linear-gradient(135deg,#7890ff,#8c5cf6);display:grid;place-items:center;font-size:25px}.brand h1{font-size:20px;margin:0}.sub,.muted{color:var(--muted);font-size:12px}.pill{border:1px solid var(--line);border-radius:99px;padding:6px 10px;color:var(--muted);font-size:12px}.grid{display:grid;gap:12px}.stats{grid-template-columns:repeat(4,minmax(0,1fr))}.two{grid-template-columns:repeat(2,minmax(0,1fr))}.panel{background:linear-gradient(145deg,#16233a,#10192b);border:1px solid var(--line);border-radius:17px;padding:17px;margin-bottom:13px;box-shadow:0 12px 28px #0002}.stat .label{font-size:12px;color:var(--muted)}.value{font-size:clamp(20px,3vw,28px);font-weight:800;margin:8px 0}.positive{color:var(--green)}.negative{color:var(--red)}h2{font-size:17px;margin:0 0 14px}h3{font-size:14px;margin:0 0 10px}.btn{border:1px solid var(--line);background:#1b2a45;color:var(--text);border-radius:11px;padding:10px 13px;font:inherit;cursor:pointer}.btn:hover{background:#23375a}.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:750}.danger{border-color:#713449;background:#351a2a;color:#ffc6d0}.btn:disabled{opacity:.45;cursor:not-allowed}.voice{padding:15px;background:linear-gradient(140deg,#192a4b,#121d33);border:1px solid #354b75;border-radius:15px}.voicebar{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.mic{height:58px;width:58px;border:0;border-radius:50%;background:linear-gradient(135deg,#7890ff,#8c5cf6);font-size:25px;cursor:pointer}.mic.on{background:linear-gradient(135deg,#ff627e,#d92f64)}.transcript{margin-top:12px;padding:12px;border:1px solid var(--line);border-radius:10px;background:#0b1425;min-height:44px;line-height:1.5}.notice{font-size:12px;line-height:1.7;color:#ffe1a0;background:#302817;border:1px solid #69532a;padding:10px;border-radius:10px;margin-top:12px}.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.field{display:flex;flex-direction:column;gap:6px}.full{grid-column:1/-1}label{font-size:12px;color:var(--muted)}input,select{width:100%;min-width:0;background:#0b1425;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px;font:inherit}input:focus,select:focus{outline:2px solid #7890ff66;border-color:var(--blue)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.bar{height:9px;background:#293650;border-radius:99px;overflow:hidden}.bar span{display:block;height:100%;background:linear-gradient(90deg,#7890ff,#42d6a0);width:0}.line{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}.line:last-child{border:0}.line b{overflow-wrap:anywhere}.chart{display:flex;align-items:end;gap:8px;height:145px}.colwrap{flex:1;height:100%;display:flex;flex-direction:column;justify-content:end;gap:5px;text-align:center;min-width:0}.col{background:linear-gradient(#8197ff,#4d63c7);border-radius:6px 6px 2px 2px;min-height:3px}.colwrap small,.colwrap b{font-size:10px;color:var(--muted);white-space:nowrap}.toast{position:fixed;left:50%;bottom:18px;transform:translate(-50%,150%);transition:.2s;background:#1b2a44;border:1px solid #42597e;padding:12px 16px;border-radius:12px;z-index:5;max-width:90vw}.toast.show{transform:translate(-50%,0)}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.tab{border:1px solid var(--line);background:#10192b;color:var(--muted);padding:9px 12px;border-radius:10px;cursor:pointer}.tab.active{background:#26385f;color:#fff;border-color:#718cff}.empty{text-align:center;padding:18px;color:var(--muted)}section[hidden]{display:none!important}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0,#1c2c52,transparent 36%),var(--bg);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif}.wrap{max-width:1100px;margin:auto;padding:16px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}.brand{display:flex;align-items:center;gap:12px}.logo{height:48px;width:48px;border-radius:15px;background:linear-gradient(135deg,#7890ff,#8c5cf6);display:grid;place-items:center;font-size:25px}.brand h1{font-size:20px;margin:0}.sub,.muted{color:var(--muted);font-size:12px}.pill{border:1px solid var(--line);border-radius:99px;padding:6px 10px;color:var(--muted);font-size:12px}.grid{display:grid;gap:12px}.stats{grid-template-columns:repeat(4,minmax(0,1fr))}.two{grid-template-columns:repeat(2,minmax(0,1fr))}.panel{background:linear-gradient(145deg,#16233a,#10192b);border:1px solid var(--line);border-radius:17px;padding:17px;margin-bottom:13px;box-shadow:0 12px 28px #0002}.stat .label{font-size:12px;color:var(--muted)}.value{font-size:clamp(20px,3vw,28px);font-weight:800;margin:8px 0}.positive{color:var(--green)}.negative{color:var(--red)}h2{font-size:17px;margin:0 0 14px}h3{font-size:14px;margin:0 0 10px}.btn{border:1px solid var(--line);background:#1b2a45;color:var(--text);border-radius:11px;padding:10px 13px;font:inherit;cursor:pointer}.btn:hover{background:#23375a}.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:750}.danger{border-color:#713449;background:#351a2a;color:#ffc6d0}.btn:disabled{opacity:.45;cursor:not-allowed}.voice{padding:15px;background:linear-gradient(140deg,#192a4b,#121d33);border:1px solid #354b75;border-radius:15px}.voicebar{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.mic{height:58px;width:58px;border:0;border-radius:50%;background:linear-gradient(135deg,#7890ff,#8c5cf6);font-size:25px;cursor:pointer}.mic.on{background:linear-gradient(135deg,#ff627e,#d92f64)}.transcript{margin-top:12px;padding:12px;border:1px solid var(--line);border-radius:10px;background:#0b1425;min-height:44px;line-height:1.5}.notice{font-size:12px;line-height:1.7;color:#ffe1a0;background:#302817;border:1px solid #69532a;padding:10px;border-radius:10px;margin-top:12px}.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.field{display:flex;flex-direction:column;gap:6px}.full{grid-column:1/-1}label{font-size:12px;color:var(--muted)}input,select{width:100%;min-width:0;background:#0b1425;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px;font:inherit}input:focus,select:focus{outline:2px solid #7890ff66;border-color:var(--blue)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.bar{height:9px;background:#293650;border-radius:99px;overflow:hidden}.bar span{display:block;height:100%;background:linear-gradient(90deg,#7890ff,#42d6a0);width:0}.line{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}.line:last-child{border:0}.line b{overflow-wrap:anywhere}.chart{display:flex;align-items:end;gap:8px;height:145px}.colwrap{flex:1;height:100%;display:flex;flex-direction:column;justify-content:end;gap:5px;text-align:center;min-width:0}.col{background:linear-gradient(#8197ff,#4d63c7);border-radius:6px 6px 2px 2px;min-height:3px}.toast{position:fixed;left:50%;bottom:18px;transform:translate(-50%,150%);transition:.2s;background:#1b2a44;border:1px solid #42597e;padding:12px 16px;border-radius:12px;z-index:5;max-width:90vw}.toast.show{transform:translate(-50%,0)}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.tab{border:1px solid var(--line);background:#10192b;color:var(--muted);padding:9px 12px;border-radius:10px;cursor:pointer}.tab.active{background:#26385f;color:#fff;border-color:#718cff}.empty{text-align:center;padding:18px;color:var(--muted)}section[hidden]{display:none!important}
 .auth-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(9,14,27,.95);display:flex;align-items:center;justify-content:center;z-index:999;padding:16px}
 .auth-box{width:100%;max-width:400px;background:linear-gradient(145deg,#16233a,#10192b);border:1px solid var(--line);border-radius:17px;padding:24px;box-shadow:0 12px 28px #0004}
 @media(max-width:740px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:1fr}.wrap{padding:11px}.panel{padding:14px}}@media(max-width:430px){.form{grid-template-columns:1fr}.full{grid-column:auto}.brand h1{font-size:18px}}
 </style></head>
 <body>
 
-<!-- Tela de Login / Cadastro do Firebase -->
 <div id="authModal" class="auth-overlay">
   <div class="auth-box">
     <div class="brand" style="justify-content:center;margin-bottom:16px;">
@@ -65,7 +64,7 @@
   </section>
   <section class="panel"><h2>⚡ Resumo rápido do mês</h2><div class="line"><span class="muted">Ganhos no mês</span><b id="monthGain">R$ 0,00</b></div><div class="line"><span class="muted">Despesas pagas no mês</span><b id="monthExpense">R$ 0,00</b></div><div class="line"><span class="muted">Custos fixos / parcelas mensais</span><b id="fixedTotal">R$ 0,00</b></div><div class="line"><span class="muted">Saldo operacional</span><b id="monthNet">R$ 0,00</b></div><div class="line"><span class="muted">Horas registradas no mês</span><b id="monthHours">0 h</b></div><div class="line"><span class="muted">Ganho por hora em turnos</span><b id="hourRate">R$ 0,00</b></div></section>
 </div>
-<div class="grid two"><section class="panel"><h2>💰 Balanço financeiro do mês</h2><div class="value" id="balanceValue">R$ 0,00</div><div class="sub">Realizado: ganhos recebidos − despesas pagas − provisão dos custos fixos.</div><div class="line"><span class="muted">Saldo realizado</span><b id="balanceRealized">R$ 0,00</b></div><div class="line"><span class="muted">A receber</span><b id="balanceReceivable">R$ 0,00</b></div><div class="line"><span class="muted">A pagar</span><b id="balancePayable">R$ 0,00</b></div><div class="line"><span class="muted">Saldo projetado (inclui pendências)</span><b id="balanceProjected">R$ 0,00</b></div></section><section class="panel"><h2>📈 Receitas x despesas (últimos 7 dias)</h2><div id="balanceChart" class="chart"></div><div class="sub">Barras verdes = ganhos; vermelhas = despesas pagas.</div></section></div>
+<div class="grid two"><section class="panel"><h2>💰 Balanço financeiro do mês</h2><div class="value" id="balanceValue">R$ 0,00</div><div class="sub">Realizado: ganhos recebidos − despesas pagas. Projetado inclui pendências.</div><div class="line"><span class="muted">Saldo realizado</span><b id="balanceRealized">R$ 0,00</b></div><div class="line"><span class="muted">A receber</span><b id="balanceReceivable">R$ 0,00</b></div><div class="line"><span class="muted">A pagar</span><b id="balancePayable">R$ 0,00</b></div><div class="line"><span class="muted">Saldo projetado (inclui pendências)</span><b id="balanceProjected">R$ 0,00</b></div></section><section class="panel"><h2>📈 Receitas x despesas (últimos 7 dias)</h2><div id="balanceChart" class="chart"></div><div class="sub">Barras verdes = ganhos; vermelhas = despesas pagas.</div></section></div>
 </section>
 <section id="tab-lancamentos" hidden>
 <section class="panel"><h2>＋ Registrar ganho ou despesa</h2><form id="entryForm" class="form"><div class="field"><label>Tipo</label><select id="kind"><option value="ganho">Ganho / faturamento</option><option value="despesa">Despesa</option></select></div><div class="field"><label>Plataforma</label><select id="platform"><option>Uber</option><option>99</option><option>Particular</option><option>Outra</option></select></div><div class="field"><label>Valor (R$)</label><input id="amount" type="number" min=".01" step=".01" required placeholder="85,50"></div><div class="field"><label>Data do lançamento</label><input id="date" type="date" required></div><div class="field"><label>Status</label><select id="entryStatus"><option value="pago">Recebido / pago</option><option value="pendente">A receber / a pagar</option></select></div><div class="field"><label>Categoria / observação</label><input id="category" placeholder="Corridas, gasolina, manutenção..."></div><div class="field"><label>Quilômetros (opcional)</label><input id="km" type="number" min="0" step=".1" placeholder="Ex.: 42"></div><div class="field full"><button class="btn primary">Salvar registro</button></div></form></section>
@@ -93,7 +92,6 @@
   <section class="panel"><h2>Histórico de turnos</h2><div id="shiftHistory"></div></section>
 </section>
 
-<!-- SEÇÃO DE CUSTOS FIXOS E PARCELADOS AUTOMÁTICOS -->
 <section id="tab-custos" hidden>
   <div class="grid two">
     <section class="panel">
@@ -139,7 +137,7 @@
     </div>
 
     <h3 style="margin-top:20px;color:var(--blue);">2. ⏱️ Controle de Turnos (Início, Fim e Horas)</h3>
-    <p class="sub" style="line-height:1.7">Na aba <b>Turnos</b>, inicie seu expediente. Ao encerrar, você pode informar a quilometragem e opcionalmente ajustar as **horas trabalhadas** exatas. No histórico de turnos você também pode clicar em **Editar** para ajustar início, fim, quilometragem ou horas de trabalho a qualquer momento.</p>
+    <p class="sub" style="line-height:1.7">Na aba <b>Turnos</b>, inicie seu expediente. Ao encerrar, você pode informar a quilometragem e opcionalmente ajustar as <b>horas trabalhadas</b> exatas. No histórico de turnos você também pode clicar em <b>Editar</b> para ajustar início, fim, quilometragem ou horas de trabalho a qualquer momento.</p>
 
     <h3 style="margin-top:20px;color:var(--blue);">3. 🏷️ Custos Fixos e Gerador Automático de Pendências</h3>
     <p class="sub" style="line-height:1.7">Ao cadastrar um custo fixo ou parcelado com o dia do vencimento (ex: dia 21), o sistema gera automaticamente a conta em <b>Contas Futuras / Para pagar</b> no início de cada mês. Quando o dia chegar e você pagar, basta clicar em "Marcar como pago" ou avisar pela voz.</p>
@@ -148,7 +146,6 @@
 
 <section class="panel"><h2>☁️ Dados e backup</h2><p class="muted">Os dados são sincronizados automaticamente na nuvem com a sua conta de e-mail.</p></section><div class="sub" style="text-align:center;padding:10px">Gestão Motorista Pro · Assistente Inteligente</div></div><div id="toast" class="toast"></div>
 
-<!-- SDKs do Firebase Auth e Firestore -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -287,17 +284,14 @@ async function save(){
   }
 }
 
-// GERAÇÃO AUTOMÁTICA DE PENDÊNCIAS A PARTIR DOS CUSTOS FIXOS
 function syncFixedExpensesToPending() {
   if(!Array.isArray(data.fixed)) return;
-  let currMonth = monthKey(); // YYYY-MM
+  let currMonth = monthKey();
   let changed = false;
 
   data.fixed.forEach(item => {
     let dueDay = item.dueDay ? String(item.dueDay).padStart(2, '0') : '01';
     let targetDate = `${currMonth}-${dueDay}`;
-    
-    // Verifica se já existe um lançamento criado para esse custo fixo neste mês
     let exists = data.entries.some(e => e.fixedId === item.id && e.date.slice(0,7) === currMonth);
     
     if(!exists) {
@@ -325,15 +319,30 @@ function paid(x){return (x.status||'pago')!=='pendente'}
 function inMonth(x){return String(x.date||'').slice(0,7)===monthKey()}
 function gainsBetween(a,b){return sum(data.entries,x=>x.kind==='ganho'&&paid(x)&&x.date>=a&&x.date<=b)}
 function calcFixedMonthly(){return data.fixed.reduce((n,x)=>n+Number(x.amount||0)*(x.freq==='semanal'?52/12:x.freq==='anual'?1/12:1),0)}
+
+// CÁLCULOS FINANCEIROS CORRIGIDOS (SEM DUPLICAÇÃO)
 function totals(){
-  let m=data.entries.filter(x=>inMonth(x)&&paid(x)),g=sum(m,x=>x.kind==='ganho'),e=sum(m,x=>x.kind==='despesa'),fixed=calcFixedMonthly();
-  let completedShifts=data.shifts.filter(x=>x.end&&String(x.start).slice(0,7)===monthKey());
-  let hours=completedShifts.reduce((n,x)=>{
-    let h = x.customHours != null ? Number(x.customHours) : Math.max(0,(new Date(x.end)-new Date(x.start))/3600000);
+  let m = data.entries.filter(x => inMonth(x) && paid(x));
+  let g = sum(m, x => x.kind === 'ganho');
+  let e = sum(m, x => x.kind === 'despesa'); // Inclui despesas pagas e custos fixos já pagos
+  let fixed = calcFixedMonthly(); // Total previsto de custos fixos do mês
+  
+  let pend = data.entries.filter(x => inMonth(x) && x.status === 'pendente');
+  let receivable = sum(pend, x => x.kind === 'ganho');
+  let payable = sum(pend, x => x.kind === 'despesa'); // Custos fixos/pendências que ainda não foram pagos
+
+  let completedShifts = data.shifts.filter(x => x.end && String(x.start).slice(0, 7) === monthKey());
+  let hours = completedShifts.reduce((n, x) => {
+    let h = x.customHours != null ? Number(x.customHours) : Math.max(0, (new Date(x.end) - new Date(x.start)) / 3600000);
     return n + h;
-  },0);
-  return{m,g,e,fixed,hours,net:g-e-fixed}
+  }, 0);
+
+  let net = g - e; // Saldo realizado / operacional (caixa real atual)
+  let projected = net + receivable - payable; // Saldo projetado com pendências
+
+  return { m, g, e, fixed, receivable, payable, hours, net, projected };
 }
+
 function dateFromSpeech(s){let t=normalize(s),d=new Date();if(/\banteontem\b/.test(t))d.setDate(d.getDate()-2);else if(/\bontem\b/.test(t))d.setDate(d.getDate()-1);else{let m=t.match(/\bdia\s+(\d{1,2})(?:\s+de\s+([a-z]+))?(?:\s+de\s+(\d{4}))?/);if(m){let months={janeiro:0,fevereiro:1,marco:2,abril:3,maio:4,junho:5,julho:6,agosto:7,setembro:8,outubro:9,novembro:10,dezembro:11},mo=m[2]?months[m[2]]:d.getMonth(),yr=m[3]?+m[3]:d.getFullYear();if(mo===undefined)mo=d.getMonth();d=new Date(yr,mo,+m[1]);if(!m[2]&&!m[3]&&d<new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate()))d.setMonth(d.getMonth()+1)}}return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 
 function parseSpeech(s){
@@ -369,7 +378,7 @@ function parseSpeech(s){
   return{query,kind:isExpense?'despesa':'ganho',amount,platform,category,text:t,date:dateFromSpeech(s),status:isPending?'pendente':'pago',hasPaid}
 }
 
-function answerQuery(s){let t=normalize(s),d=dateFromSpeech(s),tg=gainsBetween(d,d),te=sum(data.entries,x=>x.kind==='despesa'&&paid(x)&&x.date===d),msg='';if(/ontem|anteontem/.test(t))msg='Em '+new Date(d+'T12:00:00').toLocaleDateString('pt-BR')+': ganhos '+money(tg)+', despesas pagas '+money(te)+', saldo '+money(tg-te)+'.';else if(/passou|passei|acima|ultrapassei/.test(t)){let extra=Math.max(0,tg-data.goalDaily);msg=extra>0?'Você passou da meta diária em '+money(extra)+'. Ganhos: '+money(tg)+'. Meta: '+money(data.goalDaily)+'.':'Você ainda não passou da meta. Falta '+money(Math.max(0,data.goalDaily-tg))+'. Ganhos: '+money(tg)+'. Meta: '+money(data.goalDaily)+'.'}else if(/semana/.test(t)){let st=new Date();st.setDate(st.getDate()-((st.getDay()+6)%7));let ws=st.getFullYear()+'-'+String(st.getMonth()+1).padStart(2,'0')+'-'+String(st.getDate()).padStart(2,'0'),wg=gainsBetween(ws,today());msg='Ganhos desta semana: '+money(wg)+'. Meta semanal: '+money(data.goalWeekly)+'. '+(wg>=data.goalWeekly?'Passou da meta em '+money(wg-data.goalWeekly):'Falta '+money(data.goalWeekly-wg))+'.'}else if(/mes|mensal/.test(t)){let z=totals();msg='Balanço do mês: ganhos '+money(z.g)+', despesas pagas '+money(z.e)+', custos fixos provisionados '+money(z.fixed)+'. Saldo operacional '+money(z.net)+'.'}else if(/gastei|despesa/.test(t))msg='Despesas pagas em '+new Date(d+'T12:00:00').toLocaleDateString('pt-BR')+': '+money(te)+'.';else msg='Hoje: ganhos '+money(tg)+', despesas pagas '+money(te)+', saldo '+money(tg-te)+'. Meta '+money(data.goalDaily)+'. '+(tg>=data.goalDaily?'Você passou da meta em '+money(tg-data.goalDaily):'Falta '+money(data.goalDaily-tg))+'.';showVoice(msg)}
+function answerQuery(s){let t=normalize(s),d=dateFromSpeech(s),tg=gainsBetween(d,d),te=sum(data.entries,x=>x.kind==='despesa'&&paid(x)&&x.date===d),msg='';if(/ontem|anteontem/.test(t))msg='Em '+new Date(d+'T12:00:00').toLocaleDateString('pt-BR')+': ganhos '+money(tg)+', despesas pagas '+money(te)+', saldo '+money(tg-te)+'.';else if(/passou|passei|acima|ultrapassei/.test(t)){let extra=Math.max(0,tg-data.goalDaily);msg=extra>0?'Você passou da meta diária em '+money(extra)+'. Ganhos: '+money(tg)+'. Meta: '+money(data.goalDaily)+'.':'Você ainda não passou da meta. Falta '+money(Math.max(0,data.goalDaily-tg))+'. Ganhos: '+money(tg)+'. Meta: '+money(data.goalDaily)+'.'}else if(/semana/.test(t)){let st=new Date();st.setDate(st.getDate()-((st.getDay()+6)%7));let ws=st.getFullYear()+'-'+String(st.getMonth()+1).padStart(2,'0')+'-'+String(st.getDate()).padStart(2,'0'),wg=gainsBetween(ws,today());msg='Ganhos desta semana: '+money(wg)+'. Meta semanal: '+money(data.goalWeekly)+'. '+(wg>=data.goalWeekly?'Passou da meta em '+money(wg-data.goalWeekly):'Falta '+money(data.goalWeekly-wg))+'.'}else if(/mes|mensal/.test(t)){let z=totals();msg='Balanço do mês: ganhos '+money(z.g)+', despesas pagas '+money(z.e)+', custos fixos totais '+money(z.fixed)+'. Saldo operacional '+money(z.net)+'.'}else if(/gastei|despesa/.test(t))msg='Despesas pagas em '+new Date(d+'T12:00:00').toLocaleDateString('pt-BR')+': '+money(te)+'.';else msg='Hoje: ganhos '+money(tg)+', despesas pagas '+money(te)+', saldo '+money(tg-te)+'. Meta '+money(data.goalDaily)+'. '+(tg>=data.goalDaily?'Você passou da meta em '+money(tg-data.goalDaily):'Falta '+money(data.goalDaily-tg))+'.';showVoice(msg)}
 function showVoice(msg){$('transcript').textContent=msg;$('voiceTitle').textContent='Consulta respondida';toast(msg);if('speechSynthesis'in window){let u=new SpeechSynthesisUtterance(msg);u.lang='pt-BR';speechSynthesis.cancel();speechSynthesis.speak(u)}}
 function voiceResult(s){$('transcript').textContent=s;if(!s)return;let p=parseSpeech(s);if(p.query){answerQuery(s);return}if(p.amount===null||!Number.isFinite(p.amount)||p.amount<=0){$('voiceTitle').textContent='Fala reconhecida — confira os dados';toast('Não identifiquei o valor. Tente “Paguei 30 reais e 50 centavos” ou use o formulário.');$('kind').value=p.kind;$('platform').value=p.platform;$('category').value=p.category;return}
 let key=normalize(s).trim(),now=Date.now();if(key===lastVoiceKey&&now-lastVoiceAt<8000){toast('Esse comando já foi processado.');return}lastVoiceKey=key;lastVoiceAt=now;
@@ -444,10 +453,28 @@ function buildWeekOptions() {
 
 function render(){
   syncFixedExpensesToPending();
-  let t=totals(),d=today(),todayG=sum(data.entries,x=>x.kind==='ganho'&&paid(x)&&x.date===d),todayE=sum(data.entries,x=>x.kind==='despesa'&&paid(x)&&x.date===d),todayNet=todayG-todayE;
-  $('todayGain').textContent=money(todayG);$('todayExpense').textContent=money(todayE);$('todayNet').textContent=money(todayNet);$('todayNet').className='value '+(todayNet>=0?'positive':'negative');$('todayCount').textContent=data.entries.filter(x=>x.kind==='ganho'&&paid(x)&&x.date===d).length+' registros';
-  $('monthNet').textContent=money(t.net);$('monthNet').className='value '+(t.net>=0?'positive':'negative');$('monthGain').textContent=money(t.g);$('monthExpense').textContent=money(t.e);$('fixedTotal').textContent=money(t.fixed);$('monthHours').textContent=t.hours.toFixed(1)+' h';$('hourRate').textContent=money(t.hours?t.g/t.hours:0);
-  $('dayGoalValue').textContent=money(data.goalDaily);$('dayGoalText').textContent=todayG>=data.goalDaily?'Meta atingida! Passou '+money(todayG-data.goalDaily):'Falta '+money(data.goalDaily-todayG);$('dayGoalBar').style.width=(data.goalDaily?Math.min(100,todayG/data.goalDaily*100):0)+'%';
+  let t = totals(), d = today();
+  let todayG = sum(data.entries, x => x.kind === 'ganho' && paid(x) && x.date === d);
+  let todayE = sum(data.entries, x => x.kind === 'despesa' && paid(x) && x.date === d);
+  let todayNet = todayG - todayE;
+
+  $('todayGain').textContent = money(todayG);
+  $('todayExpense').textContent = money(todayE);
+  $('todayNet').textContent = money(todayNet);
+  $('todayNet').className = 'value ' + (todayNet >= 0 ? 'positive' : 'negative');
+  $('todayCount').textContent = data.entries.filter(x => x.kind === 'ganho' && paid(x) && x.date === d).length + ' registros';
+
+  $('monthNet').textContent = money(t.net);
+  $('monthNet').className = 'value ' + (t.net >= 0 ? 'positive' : 'negative');
+  $('monthGain').textContent = money(t.g);
+  $('monthExpense').textContent = money(t.e);
+  $('fixedTotal').textContent = money(t.fixed);
+  $('monthHours').textContent = t.hours.toFixed(1) + ' h';
+  $('hourRate').textContent = money(t.hours ? t.g / t.hours : 0);
+
+  $('dayGoalValue').textContent = money(data.goalDaily);
+  $('dayGoalText').textContent = todayG >= data.goalDaily ? 'Meta atingida! Passou ' + money(todayG - data.goalDaily) : 'Falta ' + money(data.goalDaily - todayG);
+  $('dayGoalBar').style.width = (data.goalDaily ? Math.min(100, todayG / data.goalDaily * 100) : 0) + '%';
 
   buildWeekOptions();
   let selectedMondayIso = $('weekSelector').value || getMonday(new Date()).toISOString().slice(0,10);
@@ -483,17 +510,38 @@ function render(){
   let bm = Math.max(1, ...days7Last.flatMap(x=>[x.g, x.e]));
   $('balanceChart').innerHTML = days7Last.map(x => '<div class="colwrap"><div style="display:flex;align-items:end;justify-content:center;gap:3px;height:110px"><div class="col" title="Ganhos ' + money(x.g) + '" style="height:' + Math.max(2, x.g / bm * 100) + '%;width:42%;background:linear-gradient(#42d6a0,#178b70)"></div><div class="col" title="Despesas ' + money(x.e) + '" style="height:' + Math.max(2, x.e / bm * 100) + '%;width:42%;background:linear-gradient(#ff7188,#b83e58)"></div></div><small>' + x.label + '</small></div>').join('');
 
-  let pend=data.entries.filter(x=>x.status==='pendente'),receivable=sum(pend,x=>x.kind==='ganho'),payable=sum(pend,x=>x.kind==='despesa');$('balanceValue').textContent=money(t.net);$('balanceValue').className='value '+(t.net>=0?'positive':'negative');$('balanceRealized').textContent=money(t.net);$('balanceReceivable').textContent=money(receivable);$('balancePayable').textContent=money(payable);$('balanceProjected').textContent=money(t.net+receivable-payable);
-  let fi=pend.filter(x=>x.kind==='ganho').sort((a,b)=>a.date.localeCompare(b.date)),fe=pend.filter(x=>x.kind==='despesa').sort((a,b)=>a.date.localeCompare(b.date));const futureHTML=(arr,kind)=>arr.length?arr.map(x=>'<div class="line"><div><b>'+esc(x.category|| (kind==='ganho'?'A receber':'A pagar'))+'</b><div class="sub">Vence dia '+esc(x.date.slice(8,10))+' ('+esc(x.date)+') · '+money(x.amount)+'</div></div><button class="btn primary" data-settle="'+x.id+'">Marcar '+(kind==='ganho'?'recebido':'pago')+'</button></div>').join(''):'<div class="empty">Nenhuma conta pendente.</div>';$('futureIncome').innerHTML=futureHTML(fi,'ganho');$('futureExpense').innerHTML=futureHTML(fe,'despesa');
-  let ent=[...data.entries].sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(b.created||'').localeCompare(a.created||'')),ft=$('filterTime').value,fy=$('filter').value;if(ft==='month')ent=ent.filter(inMonth);if(ft==='day')ent=ent.filter(x=>x.date===d);if(ft==='year')ent=ent.filter(x=>String(x.date||'').slice(0,4)===yearKey());if(fy==='gains')ent=ent.filter(x=>x.kind==='ganho');if(fy==='expenses')ent=ent.filter(x=>x.kind==='despesa');if(fy==='pending')ent=ent.filter(x=>x.status==='pendente');
-  $('history').innerHTML=ent.length?ent.map(x=>'<div class="line"><div><b>'+ (x.kind==='ganho'?'＋ ':'− ')+esc(x.category||(x.kind==='ganho'?'Ganho':'Despesa'))+'</b><div class="sub">'+esc(x.date)+' · '+esc(x.platform||'')+' · '+(x.status==='pendente'?'PENDENTE':'CONFIRMADO')+'</div></div><div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap"><b class="'+(x.kind==='ganho'?'positive':'negative')+'">'+(x.kind==='ganho'?'+':'−')+money(x.amount)+'</b>'+(x.status==='pendente'?'<button class="btn primary" data-settle="'+x.id+'">Confirmar</button>':'')+'<button class="btn" data-del="'+x.id+'">✕</button></div></div>').join(''):'<div class="empty">Nenhum registro encontrado.</div>';
+  $('balanceValue').textContent = money(t.projected);
+  $('balanceValue').className = 'value ' + (t.projected >= 0 ? 'positive' : 'negative');
+  $('balanceRealized').textContent = money(t.net);
+  $('balanceReceivable').textContent = money(t.receivable);
+  $('balancePayable').textContent = money(t.payable);
+  $('balanceProjected').textContent = money(t.projected);
+  $('balanceProjected').className = t.projected >= 0 ? 'positive' : 'negative';
+
+  let pend = data.entries.filter(x => x.status === 'pendente');
+  let fi = pend.filter(x => x.kind === 'ganho').sort((a,b)=>a.date.localeCompare(b.date));
+  let fe = pend.filter(x => x.kind === 'despesa').sort((a,b)=>a.date.localeCompare(b.date));
   
-  let fm=calcFixedMonthly();
-  $('fixedSummary').textContent=money(fm);
-  $('fixedDaily').textContent=money(fm/30);
-  $('fixedWeekly').textContent=money(fm/ (52/12));
+  const futureHTML = (arr,kind) => arr.length ? arr.map(x => '<div class="line"><div><b>'+esc(x.category || (kind==='ganho'?'A receber':'A pagar'))+'</b><div class="sub">Vence dia '+esc(x.date.slice(8,10))+' ('+esc(x.date)+') · '+money(x.amount)+'</div></div><button class="btn primary" data-settle="'+x.id+'">Marcar '+(kind==='ganho'?'recebido':'pago')+'</button></div>').join('') : '<div class="empty">Nenhuma conta pendente.</div>';
+  $('futureIncome').innerHTML = futureHTML(fi,'ganho');
+  $('futureExpense').innerHTML = futureHTML(fe,'despesa');
+
+  let ent = [...data.entries].sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(b.created||'').localeCompare(a.created||''));
+  let ft = $('filterTime').value, fy = $('filter').value;
+  if(ft === 'month') ent = ent.filter(inMonth);
+  if(ft === 'day') ent = ent.filter(x => x.date === d);
+  if(ft === 'year') ent = ent.filter(x => String(x.date||'').slice(0,4) === yearKey());
+  if(fy === 'gains') ent = ent.filter(x => x.kind === 'ganho');
+  if(fy === 'expenses') ent = ent.filter(x => x.kind === 'despesa');
+  if(fy === 'pending') ent = ent.filter(x => x.status === 'pendente');
+
+  $('history').innerHTML = ent.length ? ent.map(x => '<div class="line"><div><b>'+ (x.kind==='ganho'?'＋ ':'− ')+esc(x.category||(x.kind==='ganho'?'Ganho':'Despesa'))+'</b><div class="sub">'+esc(x.date)+' · '+esc(x.platform||'')+' · '+(x.status==='pendente'?'PENDENTE':'CONFIRMADO')+'</div></div><div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap"><b class="'+(x.kind==='ganho'?'positive':'negative')+'">'+(x.kind==='ganho'?'+':'−')+money(x.amount)+'</b>'+(x.status==='pendente'?'<button class="btn primary" data-settle="'+x.id+'">Confirmar</button>':'')+'<button class="btn" data-del="'+x.id+'">✕</button></div></div>').join('') : '<div class="empty">Nenhum registro encontrado.</div>';
   
-  $('fixedHistory').innerHTML=data.fixed.length?data.fixed.map(x=>{
+  $('fixedSummary').textContent = money(t.fixed);
+  $('fixedDaily').textContent = money(t.fixed / 30);
+  $('fixedWeekly').textContent = money(t.fixed / (52/12));
+  
+  $('fixedHistory').innerHTML = data.fixed.length ? data.fixed.map(x => {
     let details = [];
     details.push('Frequência: ' + (x.freq || 'mensal'));
     if(x.dueDay) details.push('Vencimento: dia ' + x.dueDay);
@@ -503,59 +551,111 @@ function render(){
       details.push('Recorrente (fixo)');
     }
     return '<div class="line"><div><b>'+esc(x.name)+'</b><div class="sub">'+details.join(' · ')+'</div></div><div style="display:flex;gap:8px;align-items:center"><b>'+money(x.amount)+'</b><button class="btn" data-fixed-del="'+x.id+'">✕</button></div></div>';
-  }).join(''):'<div class="empty">Nenhum custo fixo ou parcelado cadastrado.</div>';
+  }).join('') : '<div class="empty">Nenhum custo fixo ou parcelado cadastrado.</div>';
 
-  let repTime=$('reportPeriod').value,repEnt=data.entries.filter(paid);if(repTime==='month')repEnt=repEnt.filter(inMonth);if(repTime==='day')repEnt=repEnt.filter(x=>x.date===d);if(repTime==='year')repEnt=repEnt.filter(x=>String(x.date||'').slice(0,4)===yearKey());let rg=sum(repEnt,x=>x.kind==='ganho'),re=sum(repEnt,x=>x.kind==='despesa'),rf=repTime==='month'?fm:repTime==='year'?fm*12:repTime==='day'?fm/30:fm;let rn=rg-re-rf;$('report').innerHTML='<div class="line"><span>Ganhos recebidos</span><b class="positive">'+money(rg)+'</b></div><div class="line"><span>Despesas pagas</span><b class="negative">'+money(re)+'</b></div><div class="line"><span>Provisão de custos fixos para o período</span><b>'+money(rf)+'</b></div><div class="line"><span>Resultado líquido estimado</span><b class="'+(rn>=0?'positive':'negative')+'">'+money(rn)+'</b></div>';
-  let weekStart=new Date();weekStart.setDate(weekStart.getDate()-((weekStart.getDay()+6)%7));let wk=weekStart.getFullYear()+'-'+String(weekStart.getMonth()+1).padStart(2,'0')+'-'+String(weekStart.getDate()).padStart(2,'0'),wg=gainsBetween(wk,d);$('goalProgress').innerHTML=[['Diária',todayG,data.goalDaily],['Semanal',wg,data.goalWeekly],['Mensal',t.g,data.goalMonthly]].map(a=>'<div style="margin:14px 0"><div class="line"><span>'+a[0]+'</span><b>'+money(a[1])+' / '+money(a[2])+'</b></div><div class="bar"><span style="width:'+(a[2]?Math.min(100,a[1]/a[2]*100):0)+'%"></span></div><div class="sub">'+(a[1]>=a[2]?'Passou da meta em '+money(a[1]-a[2]):'Falta '+money(a[2]-a[1]))+'</div></div>').join('');
+  let repTime = $('reportPeriod').value, repEnt = data.entries.filter(paid);
+  if(repTime === 'month') repEnt = repEnt.filter(inMonth);
+  if(repTime === 'day') repEnt = repEnt.filter(x => x.date === d);
+  if(repTime === 'year') repEnt = repEnt.filter(x => String(x.date||'').slice(0,4) === yearKey());
   
-  let completed=data.shifts.filter(x=>x.end),monthShifts=completed.filter(x=>String(x.start).slice(0,7)===monthKey());
-  let hrs=monthShifts.reduce((n,x)=>{
+  let rg = sum(repEnt, x => x.kind === 'ganho');
+  let re = sum(repEnt, x => x.kind === 'despesa');
+  let rn = rg - re;
+  
+  $('report').innerHTML = `
+    <div class="line"><span>Ganhos recebidos</span><b class="positive">${money(rg)}</b></div>
+    <div class="line"><span>Despesas pagas (inclui fixas pagas)</span><b class="negative">${money(re)}</b></div>
+    <div class="line"><span>Resultado líquido realizado</span><b class="${rn >= 0 ? 'positive' : 'negative'}">${money(rn)}</b></div>
+  `;
+
+  let weekStart = new Date(); weekStart.setDate(weekStart.getDate()-((weekStart.getDay()+6)%7));
+  let wk = weekStart.getFullYear()+'-'+String(weekStart.getMonth()+1).padStart(2,'0')+'-'+String(weekStart.getDate()).padStart(2,'0'), wg = gainsBetween(wk, d);
+  
+  $('goalProgress').innerHTML = [
+    ['Diária', todayG, data.goalDaily],
+    ['Semanal', wg, data.goalWeekly],
+    ['Mensal', t.g, data.goalMonthly]
+  ].map(a => '<div style="margin:14px 0"><div class="line"><span>'+a[0]+'</span><b>'+money(a[1])+' / '+money(a[2])+'</b></div><div class="bar"><span style="width:'+(a[2]?Math.min(100,a[1]/a[2]*100):0)+'%"></span></div><div class="sub">'+(a[1]>=a[2]?'Passou da meta em '+money(a[1]-a[2]):'Falta '+money(a[2]-a[1]))+'</div></div>').join('');
+  
+  let completed = data.shifts.filter(x => x.end), monthShifts = completed.filter(x => String(x.start).slice(0,7) === monthKey());
+  let hrs = monthShifts.reduce((n,x)=>{
     let h = x.customHours != null ? Number(x.customHours) : Math.max(0,(new Date(x.end)-new Date(x.start))/3600000);
     return n + h;
   },0);
-  let kms=completed.reduce((n,x)=>n+(x.startKm!=null&&x.endKm!=null?Math.max(0,x.endKm-x.startKm):0),0);
+  let kms = completed.reduce((n,x)=>n+(x.startKm!=null&&x.endKm!=null?Math.max(0,x.endKm-x.startKm):0),0);
   
-  $('shiftStatus').textContent=data.openShift?'Turno aberto desde '+new Date(data.openShift.start).toLocaleString('pt-BR'):'Nenhum turno aberto';
-  $('startShift').disabled=!!data.openShift;$('endShift').disabled=!data.openShift;
-  $('shiftCount').textContent=completed.length;$('shiftHours').textContent=hrs.toFixed(1)+' h';$('shiftRate').textContent=money(hrs?t.g/hrs:0);$('shiftKm').textContent=kms.toLocaleString('pt-BR',{maximumFractionDigits:1})+' km';
+  $('shiftStatus').textContent = data.openShift ? 'Turno aberto desde '+new Date(data.openShift.start).toLocaleString('pt-BR') : 'Nenhum turno aberto';
+  $('startShift').disabled = !!data.openShift;
+  $('endShift').disabled = !data.openShift;
+  $('shiftCount').textContent = completed.length;
+  $('shiftHours').textContent = hrs.toFixed(1) + ' h';
+  $('shiftRate').textContent = money(hrs ? t.g / hrs : 0);
+  $('shiftKm').textContent = kms.toLocaleString('pt-BR',{maximumFractionDigits:1}) + ' km';
   
-  $('shiftHistory').innerHTML=completed.length?[...completed].reverse().map(x=>{
-    let km=x.startKm!=null&&x.endKm!=null?Math.max(0,x.endKm-x.startKm)+' km':'km não informado';
+  $('shiftHistory').innerHTML = completed.length ? [...completed].reverse().map(x => {
+    let km = x.startKm!=null&&x.endKm!=null?Math.max(0,x.endKm-x.startKm)+' km':'km não informado';
     let h = x.customHours != null ? Number(x.customHours) : Math.max(0,(new Date(x.end)-new Date(x.start))/3600000);
-    let shGains=sum(data.entries,e=>e.kind==='ganho'&&paid(e)&&e.created>=x.start&&e.created<=x.end);
-    return '<div class="line"><div><b>'+new Date(x.start).toLocaleDateString('pt-BR')+'</b><div class="sub">'+new Date(x.start).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+' – '+new Date(x.end).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+' · '+km+' · '+h.toFixed(2)+' h</div></div><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"><b>'+money(shGains)+'</b><button class="btn" data-shift-edit="'+x.id+'" style="padding:4px 8px;font-size:11px">Editar</button><button class="btn danger" data-shift-del="'+x.id+'" style="padding:4px 8px;font-size:11px">✕</button></div></div>'
-  }).join(''):'<div class="empty">Nenhum turno concluído ainda.</div>';
+    let shGains = sum(data.entries, e => e.kind === 'ganho' && paid(e) && e.created >= x.start && e.created <= x.end);
+    return '<div class="line"><div><b>'+new Date(x.start).toLocaleDateString('pt-BR')+'</b><div class="sub">'+new Date(x.start).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+' – '+new Date(x.end).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+' · '+km+' · '+h.toFixed(2)+' h</div></div><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"><b>'+money(shGains)+'</b><button class="btn" data-shift-edit="'+x.id+'" style="padding:4px 8px;font-size:11px">Editar</button><button class="btn danger" data-shift-del="'+x.id+'" style="padding:4px 8px;font-size:11px">✕</button></div></div>';
+  }).join('') : '<div class="empty">Nenhum turno concluído ainda.</div>';
 }
 
-function settle(id){let x=data.entries.find(x=>String(x.id)===String(id));if(!x||x.status!=='pendente')return;x.status='pago';x.date=today();x.paidAt=new Date().toISOString();save();render();toast((x.kind==='ganho'?'Recebimento':'Pagamento')+' confirmado hoje: '+money(x.amount))}
+function settle(id){
+  let x = data.entries.find(x => String(x.id) === String(id));
+  if(!x || x.status !== 'pendente') return;
+  x.status = 'pago';
+  x.date = today();
+  x.paidAt = new Date().toISOString();
+  save();
+  render();
+  toast((x.kind === 'ganho' ? 'Recebimento' : 'Pagamento') + ' confirmado hoje: ' + money(x.amount));
+}
 
-$('mic').onclick=startVoice;$('stop').onclick=stopVoice;$('entryForm').addEventListener('submit',addEntry);
-$('filter').onchange=render;$('filterTime').onchange=render;$('reportPeriod').onchange=render;
-$('weekSelector').onchange=render;
+$('mic').onclick = startVoice;
+$('stop').onclick = stopVoice;
+$('entryForm').addEventListener('submit', addEntry);
+$('filter').onchange = render;
+$('filterTime').onchange = render;
+$('reportPeriod').onchange = render;
+$('weekSelector').onchange = render;
 
 $('fixedType').onchange = (e) => {
   $('parcelContainer').style.display = e.target.value === 'parcelado' ? 'flex' : 'none';
 };
 
-$('history').onclick=e=>{let s=e.target.closest('[data-settle]'),b=e.target.closest('[data-del]');if(s)settle(s.dataset.settle);if(b&&confirm('Excluir este registro definitivamente?')){data.entries=data.entries.filter(x=>String(x.id)!==b.dataset.del);save();render()}};
-document.querySelector('.wrap').addEventListener('click',e=>{let s=e.target.closest('[data-settle]');if(s)settle(s.dataset.settle)});
+$('history').onclick = e => {
+  let s = e.target.closest('[data-settle]'), b = e.target.closest('[data-del]');
+  if(s) settle(s.dataset.settle);
+  if(b && confirm('Excluir este registro definitivamente?')) {
+    data.entries = data.entries.filter(x => String(x.id) !== b.dataset.del);
+    save();
+    render();
+  }
+};
 
-$('shiftHistory').onclick=e=>{
-  let del=e.target.closest('[data-shift-del]');
-  let edit=e.target.closest('[data-shift-edit]');
+document.querySelector('.wrap').addEventListener('click', e => {
+  let s = e.target.closest('[data-settle]');
+  if(s) settle(s.dataset.settle);
+});
+
+$('shiftHistory').onclick = e => {
+  let del = e.target.closest('[data-shift-del]');
+  let edit = e.target.closest('[data-shift-edit]');
   
-  if(del){
+  if(del) {
     let idToDelete = del.dataset.shiftDel;
-    if(confirm('Excluir este turno do histórico?')){
+    if(confirm('Excluir este turno do histórico?')) {
       data.shifts = data.shifts.filter(x => String(x.id) !== String(idToDelete));
-      save(); render(); toast('Turno excluído definitivamente.');
+      save();
+      render();
+      toast('Turno excluído definitivamente.');
     }
   }
   
-  if(edit){
+  if(edit) {
     let idToEdit = edit.dataset.shiftEdit;
     let sh = data.shifts.find(x => String(x.id) === String(idToEdit));
-    if(sh){
+    if(sh) {
       let defaultHours = sh.customHours != null ? sh.customHours : ((new Date(sh.end) - new Date(sh.start)) / 3600000).toFixed(2);
       let sk = prompt('Quilometragem inicial do turno:', sh.startKm ?? '');
       if(sk === null) return;
@@ -567,25 +667,27 @@ $('shiftHistory').onclick=e=>{
       sh.startKm = sk.trim() === '' ? null : Number(sk);
       sh.endKm = ek.trim() === '' ? null : Number(ek);
       sh.customHours = hrs.trim() === '' ? null : Number(hrs.replace(',','.'));
-      save(); render(); toast('Turno atualizado com sucesso!');
+      save();
+      render();
+      toast('Turno atualizado com sucesso!');
     }
   }
 };
 
-$('fixedForm').onsubmit=e=>{
+$('fixedForm').onsubmit = e => {
   e.preventDefault();
-  let amount=+$('fixedAmount').value;
-  if(!(amount>0))return toast('Valor inválido');
+  let amount = +$('fixedAmount').value;
+  if(!(amount > 0)) return toast('Valor inválido');
   
   let type = $('fixedType').value;
   let totalInstallments = type === 'parcelado' ? (+$('fixedTimes').value || null) : null;
   let dueDay = $('fixedDay').value ? +$('fixedDay').value : null;
 
   data.fixed.push({
-    id:Date.now().toString(36),
-    name:$('fixedName').value.trim(),
+    id: Date.now().toString(36),
+    name: $('fixedName').value.trim(),
     amount,
-    freq:$('fixedFreq').value,
+    freq: $('fixedFreq').value,
     type,
     dueDay,
     totalInstallments,
@@ -593,34 +695,97 @@ $('fixedForm').onsubmit=e=>{
   });
 
   save();
-  $('fixedName').value='';
-  $('fixedAmount').value='';
-  $('fixedDay').value='';
-  $('fixedTimes').value='';
-  $('fixedType').value='recorrente';
-  $('parcelContainer').style.display='none';
+  $('fixedName').value = '';
+  $('fixedAmount').value = '';
+  $('fixedDay').value = '';
+  $('fixedTimes').value = '';
+  $('fixedType').value = 'recorrente';
+  $('parcelContainer').style.display = 'none';
   render();
   toast('Custo fixo / parcelado adicionado!');
 };
 
-$('fixedHistory').onclick=e=>{
-  let b=e.target.closest('[data-fixed-del]');
-  if(b&&confirm('Excluir este custo fixo?')){
-    data.fixed=data.fixed.filter(x=>x.id!==b.dataset.fixedDel);
+$('fixedHistory').onclick = e => {
+  let b = e.target.closest('[data-fixed-del]');
+  if(b && confirm('Excluir este custo fixo?')) {
+    data.fixed = data.fixed.filter(x => x.id !== b.dataset.fixedDel);
     save();
     render();
   }
 };
 
-$('startShift').onclick=startShift;
-$('endShift').onclick=endShift;
-$('goalForm').onsubmit=e=>{e.preventDefault();data.goalDaily=Math.max(0,+$('goalDaily').value||0);data.goalWeekly=Math.max(0,+$('goalWeekly').value||0);data.goalMonthly=Math.max(0,+$('goalMonthly').value||0);save();render();toast('Metas salvas')};
-$('export').onclick=()=>{let blob=new Blob([JSON.stringify({version:4,exportedAt:new Date().toISOString(),...data},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='gestao-motorista-backup-'+today()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};$('import').onclick=()=>$('importFile').click();$('importFile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let x=JSON.parse(await f.text());if(!Array.isArray(x.entries))throw Error();if(confirm('Substituir os dados atuais pelo backup?')){data={...data,...x,entries:x.entries,fixed:Array.isArray(x.fixed)?x.fixed:[],shifts:Array.isArray(x.shifts)?x.shifts:[],openShift:x.openShift||null};save();fillGoals();render();toast('Backup importado!')}}catch{toast('Arquivo inválido')}finally{e.target.value=''}};$('csv').onclick=()=>{let rows=[['data','tipo','status','plataforma','valor','categoria','km'],...data.entries.map(x=>[x.date,x.kind,x.status||'pago',x.platform,x.amount,x.category,x.km])],csv=rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\r\n'),blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='registros-motorista-'+today()+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+$('startShift').onclick = startShift;
+$('endShift').onclick = endShift;
+$('goalForm').onsubmit = e => {
+  e.preventDefault();
+  data.goalDaily = Math.max(0, +$('goalDaily').value || 0);
+  data.goalWeekly = Math.max(0, +$('goalWeekly').value || 0);
+  data.goalMonthly = Math.max(0, +$('goalMonthly').value || 0);
+  save();
+  render();
+  toast('Metas salvas');
+};
 
-document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));for(let id of ['inicio','lancamentos','turnos','custos','metas','tutorial'])$('tab-'+id).hidden=id!==b.dataset.tab});
-document.querySelectorAll('[data-goto-tutorial]').forEach(b=>b.onclick=()=>{document.querySelector('[data-tab="tutorial"]').click();window.scrollTo({top:0,behavior:'smooth'});});
+$('export').onclick = () => {
+  let blob = new Blob([JSON.stringify({version:4, exportedAt:new Date().toISOString(), ...data}, null, 2)], {type:'application/json'});
+  let a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'gestao-motorista-backup-'+today()+'.json';
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+};
 
-function fillGoals(){$('goalDaily').value=data.goalDaily;$('goalWeekly').value=data.goalWeekly;$('goalMonthly').value=data.goalMonthly}
-$('date').value=today();fillGoals();render();
+$('import').onclick = () => $('importFile').click();
+
+$('importFile').onchange = async e => {
+  let f = e.target.files[0];
+  if(!f) return;
+  try {
+    let x = JSON.parse(await f.text());
+    if(!Array.isArray(x.entries)) throw Error();
+    if(confirm('Substituir os dados atuais pelo backup?')) {
+      data = {...data, ...x, entries: x.entries, fixed: Array.isArray(x.fixed) ? x.fixed : [], shifts: Array.isArray(x.shifts) ? x.shifts : [], openShift: x.openShift || null};
+      save();
+      fillGoals();
+      render();
+      toast('Backup importado!');
+    }
+  } catch {
+    toast('Arquivo inválido');
+  } finally {
+    e.target.value = '';
+  }
+};
+
+$('csv').onclick = () => {
+  let rows = [['data','tipo','status','plataforma','valor','categoria','km'], ...data.entries.map(x => [x.date, x.kind, x.status||'pago', x.platform, x.amount, x.category, x.km])];
+  let csv = rows.map(r => r.map(v => '"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\r\n');
+  let blob = new Blob(['\ufeff'+csv], {type:'text/csv;charset=utf-8;'});
+  let a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'registros-motorista-'+today()+'.csv';
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+};
+
+document.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => {
+  document.querySelectorAll('[data-tab]').forEach(x => x.classList.toggle('active', x === b));
+  for(let id of ['inicio','lancamentos','turnos','custos','metas','tutorial']) $('tab-'+id).hidden = id !== b.dataset.tab;
+});
+
+document.querySelectorAll('[data-goto-tutorial]').forEach(b => b.onclick = () => {
+  document.querySelector('[data-tab="tutorial"]').click();
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+
+function fillGoals(){
+  $('goalDaily').value = data.goalDaily;
+  $('goalWeekly').value = data.goalWeekly;
+  $('goalMonthly').value = data.goalMonthly;
+}
+
+$('date').value = today();
+fillGoals();
+render();
 })();
 </script></body></html>
