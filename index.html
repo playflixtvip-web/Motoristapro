@@ -12,6 +12,7 @@
 </style></head>
 <body>
 
+<!-- Tela de Login / Cadastro -->
 <div id="authModal" class="auth-overlay">
   <div class="auth-box">
     <div class="brand" style="justify-content:center;margin-bottom:16px;">
@@ -30,15 +31,52 @@
   </div>
 </div>
 
+<!-- Modal de Bloqueio por Assinatura Vencida -->
+<div id="subModal" class="auth-overlay" style="display:none;">
+  <div class="auth-box" style="max-width:450px;text-align:center;">
+    <div style="font-size:40px;margin-bottom:10px;">🔒</div>
+    <h2 style="margin-bottom:10px;">Assinatura Inativa ou Vencida</h2>
+    <p class="muted" style="font-size:14px;line-height:1.6;margin-bottom:20px;">
+      Para ter acesso completo ao sistema de gestão, renovações e assistente por voz, faça o pagamento da sua mensalidade via Pix.
+    </p>
+    
+    <div style="background:#0b1425;border:1px solid var(--line);padding:15px;border-radius:12px;margin-bottom:20px;text-align:left;">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">VALOR DA MENSALIDADE:</div>
+      <div style="font-size:22px;font-weight:800;color:var(--green);margin-bottom:12px;">R$ 19,90 / mês</div>
+      
+      <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">CHAVE PIX:</div>
+      <div style="font-size:13px;font-weight:bold;background:#16233a;padding:8px 10px;border-radius:8px;word-break:break-all;display:flex;justify-content:space-between;align-items:center;">
+        <span id="pixKeyText">seu-email-ou-pix@aqui.com</span>
+        <button onclick="navigator.clipboard.writeText(document.getElementById('pixKeyText').innerText);alert('Chave Pix copiada!');" class="btn" style="padding:4px 8px;font-size:11px;">Copiar</button>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <a id="btnWhatsapp" href="https://wa.me/5521999999999?text=Ol%C3%A1!%20Fiz%20o%20Pix%20da%20mensalidade%20do%20Gest%C3%A3o%20Motorista%20Pro%20e%20quero%20liberar%20meu%20acesso." target="_blank" class="btn primary" style="text-decoration:none;display:block;padding:12px;">
+        📲 Enviar comprovante no WhatsApp
+      </a>
+      <button id="subLogoutBtn" class="btn danger">Sair da conta</button>
+    </div>
+  </div>
+</div>
+
 <div class="wrap" id="appWrap" style="display:none;">
 <header class="top">
   <div class="brand"><div class="logo">↗</div><div><h1>Gestão Motorista <span style="color:#91a6ff">Pro</span></h1><div class="sub">Seu assistente de ganhos, custos e turnos</div></div></div>
   <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
     <span class="pill" id="userEmailPill">● Não conectado</span>
+    <span class="pill" id="subStatusPill" style="color:var(--green);border-color:#42d6a055;">● Acesso Ativo</span>
     <span class="pill" id="saveState">● Sincronizando...</span>
     <button id="logoutBtn" class="btn danger" style="padding:6px 12px;font-size:12px;">Sair</button>
   </div>
 </header>
+
+<!-- Banner de Alerta de Vencimento Próximo (Aparece se faltar 5 dias ou menos) -->
+<div id="expiryNotice" style="display:none;background:#302817;border:1px solid #69532a;color:#ffe1a0;padding:12px 16px;border-radius:12px;margin-bottom:14px;font-size:13px;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+  <span>⚠️ <b>Sua assinatura vence em breve!</b> <span id="expiryNoticeText"></span> Renove antecipadamente via Pix para não perder o acesso.</span>
+  <a id="renewLink" href="https://wa.me/5521999999999?text=Ol%C3%A1!%20Quero%20renovar%20minha%20assinatura%20do%20Gest%C3%A3o%20Motorista%20Pro." target="_blank" class="btn" style="background:#ffd17b;color:#10192b;font-weight:bold;border:0;padding:6px 12px;font-size:12px;text-decoration:none;">Renovar Acesso</a>
+</div>
+
 <nav class="tabs"><button class="tab active" data-tab="inicio">Visão geral</button><button class="tab" data-tab="lancamentos">Lançamentos</button><button class="tab" data-tab="turnos">Turnos</button><button class="tab" data-tab="custos">Custos fixos</button><button class="tab" data-tab="metas">Metas e relatórios</button><button class="tab" data-tab="tutorial">📖 Tutorial e Voz</button></nav>
 
 <div style="margin-bottom:12px">
@@ -168,13 +206,18 @@ let currentUser = null;
 let isSignUpMode = false;
 
 const authModal = document.getElementById('authModal');
+const subModal = document.getElementById('subModal');
 const appWrap = document.getElementById('appWrap');
 const authForm = document.getElementById('authForm');
 const authTitle = document.getElementById('authTitle');
 const authSubmitBtn = document.getElementById('authSubmitBtn');
 const toggleAuthModeBtn = document.getElementById('toggleAuthMode');
 const userEmailPill = document.getElementById('userEmailPill');
+const subStatusPill = document.getElementById('subStatusPill');
+const expiryNotice = document.getElementById('expiryNotice');
+const expiryNoticeText = document.getElementById('expiryNoticeText');
 const logoutBtn = document.getElementById('logoutBtn');
+const subLogoutBtn = document.getElementById('subLogoutBtn');
 
 toggleAuthModeBtn.onclick = () => {
   isSignUpMode = !isSignUpMode;
@@ -195,7 +238,13 @@ authForm.onsubmit = async (e) => {
   const password = document.getElementById('authPassword').value;
   try {
     if(isSignUpMode) {
-      await auth.createUserWithEmailAndPassword(email, password);
+      const res = await auth.createUserWithEmailAndPassword(email, password);
+      await db.collection('users').doc(res.user.uid).set({
+        email: email,
+        statusAssinatura: "pendente",
+        dataVencimento: "2000-01-01",
+        entries: [], fixed: [], shifts: []
+      }, { merge: true });
       alert('Conta criada com sucesso!');
     } else {
       await auth.signInWithEmailAndPassword(email, password);
@@ -206,19 +255,60 @@ authForm.onsubmit = async (e) => {
 };
 
 logoutBtn.onclick = () => auth.signOut();
+subLogoutBtn.onclick = () => auth.signOut();
 
 auth.onAuthStateChanged(async user => {
   if (user) {
     currentUser = user;
-    authModal.style.display = 'none';
-    appWrap.style.display = 'block';
-    userEmailPill.textContent = '● ' + user.email;
-    if (window.loadUserData) {
-      await window.loadUserData();
+    
+    try {
+      const docRef = db.collection('users').doc(user.uid);
+      const doc = await docRef.get();
+      const uData = doc.exists ? doc.data() : {};
+      
+      const hoje = new Date().toISOString().slice(0, 10);
+      const vencimento = uData.dataVencimento || "2000-01-01";
+      const status = uData.statusAssinatura || "pendente";
+
+      // Formata a data de YYYY-MM-DD para DD/MM/YYYY
+      let dateParts = vencimento.split('-');
+      let dateFormatted = dateParts.length === 3 ? `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}` : vencimento;
+
+      if (status === "ativo" && vencimento >= hoje) {
+        authModal.style.display = 'none';
+        subModal.style.display = 'none';
+        appWrap.style.display = 'block';
+        userEmailPill.textContent = '● ' + user.email;
+        
+        // Atualiza a pílula do topo com a data de vencimento
+        subStatusPill.textContent = '● Acesso até ' + dateFormatted;
+
+        // Lógica para avisar se faltarem 5 dias ou menos para vencer
+        const dHoje = new Date(hoje + 'T00:00:00');
+        const dVenc = new Date(vencimento + 'T00:00:00');
+        const diffDias = Math.ceil((dVenc - dHoje) / (1000 * 60 * 60 * 24));
+
+        if (diffDias <= 5 && diffDias >= 0) {
+          expiryNotice.style.display = 'flex';
+          expiryNoticeText.textContent = diffDias === 0 ? 'Vence HOJE!' : `Faltam apenas ${diffDias} dia(s) (${dateFormatted}).`;
+        } else {
+          expiryNotice.style.display = 'none';
+        }
+
+        if (window.loadUserData) await window.loadUserData();
+      } else {
+        authModal.style.display = 'none';
+        appWrap.style.display = 'none';
+        subModal.style.display = 'flex';
+      }
+    } catch(e) {
+      console.error(e);
+      alert("Erro ao validar assinatura.");
     }
   } else {
     currentUser = null;
     authModal.style.display = 'flex';
+    subModal.style.display = 'none';
     appWrap.style.display = 'none';
     userEmailPill.textContent = '● Não conectado';
   }
@@ -244,15 +334,6 @@ window.loadUserData = async function() {
       data.fixed = Array.isArray(data.fixed) ? data.fixed : [];
       data.shifts = Array.isArray(data.shifts) ? data.shifts : [];
       data.openShift = data.openShift || null;
-    } else {
-      for(const k of ['gestaoMotoristaProV2','gmvoz','gestaoMotoristaVoz']) try {
-        let x = JSON.parse(localStorage.getItem(k));
-        if(x && Array.isArray(x.entries)) {
-          data = { ...data, ...x };
-          break;
-        }
-      } catch{}
-      await docRef.set(data);
     }
     syncFixedExpensesToPending();
     fillGoals();
@@ -272,7 +353,7 @@ async function save(){
     localStorage.setItem('gestaoMotoristaProV2', JSON.stringify(data));
     if (currentUser) {
       $('saveState').textContent = '● Salvando na Nuvem...';
-      await db.collection('users').doc(currentUser.uid).set(data);
+      await db.collection('users').doc(currentUser.uid).set(data, { merge: true });
       $('saveState').textContent = '● Sincronizado na Nuvem';
     } else {
       $('saveState').textContent = '● Salvo neste aparelho';
@@ -320,16 +401,15 @@ function inMonth(x){return String(x.date||'').slice(0,7)===monthKey()}
 function gainsBetween(a,b){return sum(data.entries,x=>x.kind==='ganho'&&paid(x)&&x.date>=a&&x.date<=b)}
 function calcFixedMonthly(){return data.fixed.reduce((n,x)=>n+Number(x.amount||0)*(x.freq==='semanal'?52/12:x.freq==='anual'?1/12:1),0)}
 
-// CÁLCULOS FINANCEIROS CORRIGIDOS (SEM DUPLICAÇÃO)
 function totals(){
   let m = data.entries.filter(x => inMonth(x) && paid(x));
   let g = sum(m, x => x.kind === 'ganho');
-  let e = sum(m, x => x.kind === 'despesa'); // Inclui despesas pagas e custos fixos já pagos
-  let fixed = calcFixedMonthly(); // Total previsto de custos fixos do mês
+  let e = sum(m, x => x.kind === 'despesa');
+  let fixed = calcFixedMonthly();
   
   let pend = data.entries.filter(x => inMonth(x) && x.status === 'pendente');
   let receivable = sum(pend, x => x.kind === 'ganho');
-  let payable = sum(pend, x => x.kind === 'despesa'); // Custos fixos/pendências que ainda não foram pagos
+  let payable = sum(pend, x => x.kind === 'despesa');
 
   let completedShifts = data.shifts.filter(x => x.end && String(x.start).slice(0, 7) === monthKey());
   let hours = completedShifts.reduce((n, x) => {
@@ -337,8 +417,8 @@ function totals(){
     return n + h;
   }, 0);
 
-  let net = g - e; // Saldo realizado / operacional (caixa real atual)
-  let projected = net + receivable - payable; // Saldo projetado com pendências
+  let net = g - e;
+  let projected = net + receivable - payable;
 
   return { m, g, e, fixed, receivable, payable, hours, net, projected };
 }
