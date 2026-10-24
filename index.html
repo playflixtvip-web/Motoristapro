@@ -46,7 +46,7 @@
   <button class="btn" data-goto-tutorial style="width:100%;background:#17223b;border-color:var(--blue);color:var(--text);font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;">📖 Precisa de ajuda? Clique aqui para ver o Tutorial de Uso e as Palavras de Comando por Voz</button>
 </div>
 
-<section class="panel"><h2>🗓️ Contas futuras e pendências</h2><p class="muted">As contas pendentes ficam separadas do dinheiro que já entrou ou saiu. Você pode confirmar o pagamento/recebimento pela voz ou no histórico.</p><div class="grid two"><div><h3>Para receber</h3><div id="futureIncome"></div></div><div><h3>Para pagar</h3><div id="futureExpense"></div></div></div></section>
+<section class="panel"><h2>🗓️ Contas futuras e pendências</h2><p class="muted">As contas pendentes ficam separadas do dinheiro que já entrou ou saiu. As parcelas e custos fixos do mês aparecem aqui para você confirmar o pagamento.</p><div class="grid two"><div><h3>Para receber</h3><div id="futureIncome"></div></div><div><h3>Para pagar</h3><div id="futureExpense"></div></div></div></section>
 <section id="tab-inicio">
 <div class="panel"><h2>🎙️ Assistente por voz inteligente</h2><div class="voice"><div class="voicebar"><button id="mic" class="mic" aria-label="Falar">🎙️</button><div style="flex:1;min-width:190px"><b id="voiceTitle">Toque no microfone e fale com calma</b><div class="sub">Ex.: “Ganhei 250 e 40 centavos hoje” · “Gastei 40 reais de gasolina ontem” · “Conta a pagar 30 reais dia 25”</div></div><button id="stop" class="btn" disabled>Processar fala</button></div><div id="transcript" class="transcript">Sua fala aparecerá aqui.</div><div class="notice">💡 <b>Exemplos:</b><br>• “Ganhei 250 e 40 centavos hoje” ou “Ganhei 180 reais dia 21”<br>• “Gastei 40 reais de gasolina ontem”<br>• “Conta a pagar 30 reais dia 25” (cria pendência)<br>• “Conta a pagar 30 reais já paga” (registra como paga)<br>• “Paguei a conta de internet 60 reais”<br>• “Recebi os 100 reais que estavam pendentes”<br>• “Quanto ganhei hoje?”, “Quanto gastei ontem?”, “Quanto passei da meta?”</div></div></div>
 <div class="grid stats">
@@ -63,7 +63,7 @@
     </div>
     <div id="chart" class="chart"></div>
   </section>
-  <section class="panel"><h2>⚡ Resumo rápido do mês</h2><div class="line"><span class="muted">Ganhos no mês</span><b id="monthGain">R$ 0,00</b></div><div class="line"><span class="muted">Despesas pagas no mês</span><b id="monthExpense">R$ 0,00</b></div><div class="line"><span class="muted">Custos fixos mensais</span><b id="fixedTotal">R$ 0,00</b></div><div class="line"><span class="muted">Saldo operacional</span><b id="monthNet">R$ 0,00</b></div><div class="line"><span class="muted">Horas registradas no mês</span><b id="monthHours">0 h</b></div><div class="line"><span class="muted">Ganho por hora em turnos</span><b id="hourRate">R$ 0,00</b></div></section>
+  <section class="panel"><h2>⚡ Resumo rápido do mês</h2><div class="line"><span class="muted">Ganhos no mês</span><b id="monthGain">R$ 0,00</b></div><div class="line"><span class="muted">Despesas pagas no mês</span><b id="monthExpense">R$ 0,00</b></div><div class="line"><span class="muted">Custos fixos / parcelas mensais</span><b id="fixedTotal">R$ 0,00</b></div><div class="line"><span class="muted">Saldo operacional</span><b id="monthNet">R$ 0,00</b></div><div class="line"><span class="muted">Horas registradas no mês</span><b id="monthHours">0 h</b></div><div class="line"><span class="muted">Ganho por hora em turnos</span><b id="hourRate">R$ 0,00</b></div></section>
 </div>
 <div class="grid two"><section class="panel"><h2>💰 Balanço financeiro do mês</h2><div class="value" id="balanceValue">R$ 0,00</div><div class="sub">Realizado: ganhos recebidos − despesas pagas − provisão dos custos fixos.</div><div class="line"><span class="muted">Saldo realizado</span><b id="balanceRealized">R$ 0,00</b></div><div class="line"><span class="muted">A receber</span><b id="balanceReceivable">R$ 0,00</b></div><div class="line"><span class="muted">A pagar</span><b id="balancePayable">R$ 0,00</b></div><div class="line"><span class="muted">Saldo projetado (inclui pendências)</span><b id="balanceProjected">R$ 0,00</b></div></section><section class="panel"><h2>📈 Receitas x despesas (últimos 7 dias)</h2><div id="balanceChart" class="chart"></div><div class="sub">Barras verdes = ganhos; vermelhas = despesas pagas.</div></section></div>
 </section>
@@ -92,7 +92,32 @@
   </div>
   <section class="panel"><h2>Histórico de turnos</h2><div id="shiftHistory"></div></section>
 </section>
-<section id="tab-custos" hidden><div class="grid two"><section class="panel"><h2>🏷️ Adicionar custo fixo</h2><form id="fixedForm" class="form"><div class="field"><label>Descrição</label><input id="fixedName" required placeholder="Aluguel da moto / Internet"></div><div class="field"><label>Valor (R$)</label><input id="fixedAmount" type="number" min=".01" step=".01" required placeholder="150,00"></div><div class="field full"><label>Frequência</label><select id="fixedFreq"><option value="semanal">Semanal</option><option value="mensal" selected>Mensal</option><option value="anual">Anual</option></select></div><div class="field full"><button class="btn primary">Adicionar custo fixo</button></div></form></section><section class="panel"><h2>Resumo de custos fixos</h2><div class="line"><span class="muted">Total mensal equivalente</span><b id="fixedSummary">R$ 0,00</b></div><div class="line"><span class="muted">Provisão diária (30 dias)</span><b id="fixedDaily">R$ 0,00</b></div><div class="line"><span class="muted">Provisão semanal</span><b id="fixedWeekly">R$ 0,00</b></div></section></div><section class="panel"><h2>Custos fixos cadastrados</h2><div id="fixedHistory"></div></section></section>
+
+<!-- SEÇÃO DE CUSTOS FIXOS E PARCELADOS AUTOMÁTICOS -->
+<section id="tab-custos" hidden>
+  <div class="grid two">
+    <section class="panel">
+      <h2>🏷️ Adicionar custo fixo ou parcelado</h2>
+      <form id="fixedForm" class="form">
+        <div class="field full"><label>Descrição</label><input id="fixedName" required placeholder="Ex: Aluguel da moto / Financiamento"></div>
+        <div class="field"><label>Valor (R$)</label><input id="fixedAmount" type="number" min=".01" step=".01" required placeholder="690,62"></div>
+        <div class="field"><label>Frequência</label><select id="fixedFreq"><option value="semanal">Semanal</option><option value="mensal" selected>Mensal</option><option value="anual">Anual</option></select></div>
+        <div class="field"><label>Tipo de custo</label><select id="fixedType"><option value="recorrente" selected>Recorrente (fixo)</option><option value="parcelado">Parcelado (com prazo)</option></select></div>
+        <div class="field"><label>Dia de vencimento (1 a 31)</label><input id="fixedDay" type="number" min="1" max="31" placeholder="Ex: 20"></div>
+        <div class="field full" id="parcelContainer" style="display:none;"><label>Quantidade de parcelas (vezes)</label><input id="fixedTimes" type="number" min="1" placeholder="Ex: 30"></div>
+        <div class="field full"><button class="btn primary">Adicionar custo / compromisso</button></div>
+      </form>
+    </section>
+    <section class="panel">
+      <h2>Resumo de custos fixos</h2>
+      <div class="line"><span class="muted">Total mensal equivalente</span><b id="fixedSummary">R$ 0,00</b></div>
+      <div class="line"><span class="muted">Provisão diária (30 dias)</span><b id="fixedDaily">R$ 0,00</b></div>
+      <div class="line"><span class="muted">Provisão semanal</span><b id="fixedWeekly">R$ 0,00</b></div>
+    </section>
+  </div>
+  <section class="panel"><h2>Custos fixos e parcelados cadastrados</h2><div id="fixedHistory"></div></section>
+</section>
+
 <section id="tab-metas" hidden><div class="grid two"><section class="panel"><h2>🎯 Configurar metas</h2><form id="goalForm" class="form"><div class="field"><label>Meta diária (R$)</label><input id="goalDaily" type="number" min="0" step=".01"></div><div class="field"><label>Meta semanal (R$)</label><input id="goalWeekly" type="number" min="0" step=".01"></div><div class="field"><label>Meta mensal (R$)</label><input id="goalMonthly" type="number" min="0" step=".01"></div><div class="field full"><button class="btn primary">Salvar metas</button></div></form></section><section class="panel"><h2>Progresso das metas</h2><div id="goalProgress"></div></section></div><section class="panel"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px"><h2>📆 Relatório customizado</h2><select id="reportPeriod" style="width:auto"><option value="month">Este mês</option><option value="day">Hoje</option><option value="year">Este ano</option><option value="all">Todo histórico</option></select></div><div id="report"></div><div class="actions"><button id="export" class="btn">Exportar backup JSON</button><button id="import" class="btn">Importar backup JSON</button><input id="importFile" type="file" accept=".json,application/json" hidden><button id="csv" class="btn">Exportar registros CSV</button></div></section></section>
 
 <section id="tab-tutorial" hidden>
@@ -109,15 +134,15 @@
       <div class="line"><div><b>➕ Registrar Ganhos / Faturamento</b><div class="sub">Exemplos: <i>“Ganhei 250 e 40 centavos hoje”</i> · <i>“Faturei 180 reais na Uber”</i></div></div></div>
       <div class="line"><div><b>➖ Registrar Despesas Pagas</b><div class="sub">Exemplos: <i>“Gastei 40 reais de gasolina ontem”</i> · <i>“Paguei 30 e 50 de óleo”</i></div></div></div>
       <div class="line"><div><b>🗓️ Contas Futuras (Pendentes)</b><div class="sub">Exemplos: <i>“Conta a pagar 50 reais dia 25”</i> · <i>“Conta a receber 150 reais dia 30”</i></div></div></div>
-      <div class="line"><div><b>✅ Quitar / Dar Baixa em Contas</b><div class="sub">Exemplos: <i>“Conta a pagar 50 reais já paga”</i> · <i>“Paguei a conta de internet 60 reais”</i></div></div></div>
+      <div class="line"><div><b>✅ Quitar / Dar Baixa em Contas</b><div class="sub">Exemplos: <i>“Conta a pagar 690 e 62 já paga”</i> · <i>“Paguei a parcela da moto”</i></div></div></div>
       <div class="line"><div><b>📊 Consultas Rápidas por Voz</b><div class="sub">Exemplos: <i>“Quanto ganhei hoje?”</i> · <i>“Quanto gastei ontem?”</i> · <i>“Qual o saldo do mês?”</i></div></div></div>
     </div>
 
     <h3 style="margin-top:20px;color:var(--blue);">2. ⏱️ Controle de Turnos (Início, Fim e Horas)</h3>
     <p class="sub" style="line-height:1.7">Na aba <b>Turnos</b>, inicie seu expediente. Ao encerrar, você pode informar a quilometragem e opcionalmente ajustar as **horas trabalhadas** exatas. No histórico de turnos você também pode clicar em **Editar** para ajustar início, fim, quilometragem ou horas de trabalho a qualquer momento.</p>
 
-    <h3 style="margin-top:20px;color:var(--blue);">3. 🏷️ Custos Fixos</h3>
-    <p class="sub" style="line-height:1.7">Na aba <b>Custos fixos</b>, adicione despesas recorrentes (aluguel da moto, internet, seguro) selecionando a frequência: <b>Semanal, Mensal ou Anual</b>.</p>
+    <h3 style="margin-top:20px;color:var(--blue);">3. 🏷️ Custos Fixos e Gerador Automático de Pendências</h3>
+    <p class="sub" style="line-height:1.7">Ao cadastrar um custo fixo ou parcelado com o dia do vencimento (ex: dia 21), o sistema gera automaticamente a conta em <b>Contas Futuras / Para pagar</b> no início de cada mês. Quando o dia chegar e você pagar, basta clicar em "Marcar como pago" ou avisar pela voz.</p>
   </div>
 </section>
 
@@ -223,7 +248,6 @@ window.loadUserData = async function() {
       data.shifts = Array.isArray(data.shifts) ? data.shifts : [];
       data.openShift = data.openShift || null;
     } else {
-      // Se não existir na nuvem, tenta importar dados locais existentes e salva na nuvem
       for(const k of ['gestaoMotoristaProV2','gmvoz','gestaoMotoristaVoz']) try {
         let x = JSON.parse(localStorage.getItem(k));
         if(x && Array.isArray(x.entries)) {
@@ -233,6 +257,7 @@ window.loadUserData = async function() {
       } catch{}
       await docRef.set(data);
     }
+    syncFixedExpensesToPending();
     fillGoals();
     render();
     $('saveState').textContent = '● Sincronizado na Nuvem';
@@ -260,6 +285,39 @@ async function save(){
     $('saveState').textContent = 'Erro ao salvar';
     toast('Erro ao salvar na nuvem.');
   }
+}
+
+// GERAÇÃO AUTOMÁTICA DE PENDÊNCIAS A PARTIR DOS CUSTOS FIXOS
+function syncFixedExpensesToPending() {
+  if(!Array.isArray(data.fixed)) return;
+  let currMonth = monthKey(); // YYYY-MM
+  let changed = false;
+
+  data.fixed.forEach(item => {
+    let dueDay = item.dueDay ? String(item.dueDay).padStart(2, '0') : '01';
+    let targetDate = `${currMonth}-${dueDay}`;
+    
+    // Verifica se já existe um lançamento criado para esse custo fixo neste mês
+    let exists = data.entries.some(e => e.fixedId === item.id && e.date.slice(0,7) === currMonth);
+    
+    if(!exists) {
+      data.entries.push({
+        id: 'auto_fixed_' + item.id + '_' + currMonth,
+        fixedId: item.id,
+        kind: 'despesa',
+        platform: 'Particular',
+        amount: Number(item.amount),
+        date: targetDate,
+        status: 'pendente',
+        category: item.name + (item.type === 'parcelado' && item.totalInstallments ? ' (Parcela)' : ' (Fixo)'),
+        km: 0,
+        created: new Date().toISOString()
+      });
+      changed = true;
+    }
+  });
+
+  if(changed) save();
 }
 
 function sum(a,fn){return a.filter(fn).reduce((n,x)=>n+Number(x.amount||0),0)}
@@ -385,6 +443,7 @@ function buildWeekOptions() {
 }
 
 function render(){
+  syncFixedExpensesToPending();
   let t=totals(),d=today(),todayG=sum(data.entries,x=>x.kind==='ganho'&&paid(x)&&x.date===d),todayE=sum(data.entries,x=>x.kind==='despesa'&&paid(x)&&x.date===d),todayNet=todayG-todayE;
   $('todayGain').textContent=money(todayG);$('todayExpense').textContent=money(todayE);$('todayNet').textContent=money(todayNet);$('todayNet').className='value '+(todayNet>=0?'positive':'negative');$('todayCount').textContent=data.entries.filter(x=>x.kind==='ganho'&&paid(x)&&x.date===d).length+' registros';
   $('monthNet').textContent=money(t.net);$('monthNet').className='value '+(t.net>=0?'positive':'negative');$('monthGain').textContent=money(t.g);$('monthExpense').textContent=money(t.e);$('fixedTotal').textContent=money(t.fixed);$('monthHours').textContent=t.hours.toFixed(1)+' h';$('hourRate').textContent=money(t.hours?t.g/t.hours:0);
@@ -425,10 +484,27 @@ function render(){
   $('balanceChart').innerHTML = days7Last.map(x => '<div class="colwrap"><div style="display:flex;align-items:end;justify-content:center;gap:3px;height:110px"><div class="col" title="Ganhos ' + money(x.g) + '" style="height:' + Math.max(2, x.g / bm * 100) + '%;width:42%;background:linear-gradient(#42d6a0,#178b70)"></div><div class="col" title="Despesas ' + money(x.e) + '" style="height:' + Math.max(2, x.e / bm * 100) + '%;width:42%;background:linear-gradient(#ff7188,#b83e58)"></div></div><small>' + x.label + '</small></div>').join('');
 
   let pend=data.entries.filter(x=>x.status==='pendente'),receivable=sum(pend,x=>x.kind==='ganho'),payable=sum(pend,x=>x.kind==='despesa');$('balanceValue').textContent=money(t.net);$('balanceValue').className='value '+(t.net>=0?'positive':'negative');$('balanceRealized').textContent=money(t.net);$('balanceReceivable').textContent=money(receivable);$('balancePayable').textContent=money(payable);$('balanceProjected').textContent=money(t.net+receivable-payable);
-  let fi=pend.filter(x=>x.kind==='ganho').sort((a,b)=>a.date.localeCompare(b.date)),fe=pend.filter(x=>x.kind==='despesa').sort((a,b)=>a.date.localeCompare(b.date));const futureHTML=(arr,kind)=>arr.length?arr.map(x=>'<div class="line"><div><b>'+esc(x.category|| (kind==='ganho'?'A receber':'A pagar'))+'</b><div class="sub">Vence '+esc(x.date)+' · '+money(x.amount)+'</div></div><button class="btn primary" data-settle="'+x.id+'">Marcar '+(kind==='ganho'?'recebido':'pago')+'</button></div>').join(''):'<div class="empty">Nenhuma conta pendente.</div>';$('futureIncome').innerHTML=futureHTML(fi,'ganho');$('futureExpense').innerHTML=futureHTML(fe,'despesa');
+  let fi=pend.filter(x=>x.kind==='ganho').sort((a,b)=>a.date.localeCompare(b.date)),fe=pend.filter(x=>x.kind==='despesa').sort((a,b)=>a.date.localeCompare(b.date));const futureHTML=(arr,kind)=>arr.length?arr.map(x=>'<div class="line"><div><b>'+esc(x.category|| (kind==='ganho'?'A receber':'A pagar'))+'</b><div class="sub">Vence dia '+esc(x.date.slice(8,10))+' ('+esc(x.date)+') · '+money(x.amount)+'</div></div><button class="btn primary" data-settle="'+x.id+'">Marcar '+(kind==='ganho'?'recebido':'pago')+'</button></div>').join(''):'<div class="empty">Nenhuma conta pendente.</div>';$('futureIncome').innerHTML=futureHTML(fi,'ganho');$('futureExpense').innerHTML=futureHTML(fe,'despesa');
   let ent=[...data.entries].sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(b.created||'').localeCompare(a.created||'')),ft=$('filterTime').value,fy=$('filter').value;if(ft==='month')ent=ent.filter(inMonth);if(ft==='day')ent=ent.filter(x=>x.date===d);if(ft==='year')ent=ent.filter(x=>String(x.date||'').slice(0,4)===yearKey());if(fy==='gains')ent=ent.filter(x=>x.kind==='ganho');if(fy==='expenses')ent=ent.filter(x=>x.kind==='despesa');if(fy==='pending')ent=ent.filter(x=>x.status==='pendente');
   $('history').innerHTML=ent.length?ent.map(x=>'<div class="line"><div><b>'+ (x.kind==='ganho'?'＋ ':'− ')+esc(x.category||(x.kind==='ganho'?'Ganho':'Despesa'))+'</b><div class="sub">'+esc(x.date)+' · '+esc(x.platform||'')+' · '+(x.status==='pendente'?'PENDENTE':'CONFIRMADO')+'</div></div><div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap"><b class="'+(x.kind==='ganho'?'positive':'negative')+'">'+(x.kind==='ganho'?'+':'−')+money(x.amount)+'</b>'+(x.status==='pendente'?'<button class="btn primary" data-settle="'+x.id+'">Confirmar</button>':'')+'<button class="btn" data-del="'+x.id+'">✕</button></div></div>').join(''):'<div class="empty">Nenhum registro encontrado.</div>';
-  let fm=calcFixedMonthly();$('fixedSummary').textContent=money(fm);$('fixedDaily').textContent=money(fm/30);$('fixedWeekly').textContent=money(fm/ (52/12));$('fixedHistory').innerHTML=data.fixed.length?data.fixed.map(x=>'<div class="line"><div><b>'+esc(x.name)+'</b><div class="sub">Frequência: '+esc(x.freq||'mensal')+'</div></div><div style="display:flex;gap:8px;align-items:center"><b>'+money(x.amount)+'</b><button class="btn" data-fixed-del="'+x.id+'">✕</button></div></div>').join(''):'<div class="empty">Nenhum custo fixo cadastrado.</div>';
+  
+  let fm=calcFixedMonthly();
+  $('fixedSummary').textContent=money(fm);
+  $('fixedDaily').textContent=money(fm/30);
+  $('fixedWeekly').textContent=money(fm/ (52/12));
+  
+  $('fixedHistory').innerHTML=data.fixed.length?data.fixed.map(x=>{
+    let details = [];
+    details.push('Frequência: ' + (x.freq || 'mensal'));
+    if(x.dueDay) details.push('Vencimento: dia ' + x.dueDay);
+    if(x.type === 'parcelado' && x.totalInstallments) {
+      details.push('Parcelado em ' + x.totalInstallments + 'x');
+    } else {
+      details.push('Recorrente (fixo)');
+    }
+    return '<div class="line"><div><b>'+esc(x.name)+'</b><div class="sub">'+details.join(' · ')+'</div></div><div style="display:flex;gap:8px;align-items:center"><b>'+money(x.amount)+'</b><button class="btn" data-fixed-del="'+x.id+'">✕</button></div></div>';
+  }).join(''):'<div class="empty">Nenhum custo fixo ou parcelado cadastrado.</div>';
+
   let repTime=$('reportPeriod').value,repEnt=data.entries.filter(paid);if(repTime==='month')repEnt=repEnt.filter(inMonth);if(repTime==='day')repEnt=repEnt.filter(x=>x.date===d);if(repTime==='year')repEnt=repEnt.filter(x=>String(x.date||'').slice(0,4)===yearKey());let rg=sum(repEnt,x=>x.kind==='ganho'),re=sum(repEnt,x=>x.kind==='despesa'),rf=repTime==='month'?fm:repTime==='year'?fm*12:repTime==='day'?fm/30:fm;let rn=rg-re-rf;$('report').innerHTML='<div class="line"><span>Ganhos recebidos</span><b class="positive">'+money(rg)+'</b></div><div class="line"><span>Despesas pagas</span><b class="negative">'+money(re)+'</b></div><div class="line"><span>Provisão de custos fixos para o período</span><b>'+money(rf)+'</b></div><div class="line"><span>Resultado líquido estimado</span><b class="'+(rn>=0?'positive':'negative')+'">'+money(rn)+'</b></div>';
   let weekStart=new Date();weekStart.setDate(weekStart.getDate()-((weekStart.getDay()+6)%7));let wk=weekStart.getFullYear()+'-'+String(weekStart.getMonth()+1).padStart(2,'0')+'-'+String(weekStart.getDate()).padStart(2,'0'),wg=gainsBetween(wk,d);$('goalProgress').innerHTML=[['Diária',todayG,data.goalDaily],['Semanal',wg,data.goalWeekly],['Mensal',t.g,data.goalMonthly]].map(a=>'<div style="margin:14px 0"><div class="line"><span>'+a[0]+'</span><b>'+money(a[1])+' / '+money(a[2])+'</b></div><div class="bar"><span style="width:'+(a[2]?Math.min(100,a[1]/a[2]*100):0)+'%"></span></div><div class="sub">'+(a[1]>=a[2]?'Passou da meta em '+money(a[1]-a[2]):'Falta '+money(a[2]-a[1]))+'</div></div>').join('');
   
@@ -456,6 +532,10 @@ function settle(id){let x=data.entries.find(x=>String(x.id)===String(id));if(!x|
 $('mic').onclick=startVoice;$('stop').onclick=stopVoice;$('entryForm').addEventListener('submit',addEntry);
 $('filter').onchange=render;$('filterTime').onchange=render;$('reportPeriod').onchange=render;
 $('weekSelector').onchange=render;
+
+$('fixedType').onchange = (e) => {
+  $('parcelContainer').style.display = e.target.value === 'parcelado' ? 'flex' : 'none';
+};
 
 $('history').onclick=e=>{let s=e.target.closest('[data-settle]'),b=e.target.closest('[data-del]');if(s)settle(s.dataset.settle);if(b&&confirm('Excluir este registro definitivamente?')){data.entries=data.entries.filter(x=>String(x.id)!==b.dataset.del);save();render()}};
 document.querySelector('.wrap').addEventListener('click',e=>{let s=e.target.closest('[data-settle]');if(s)settle(s.dataset.settle)});
@@ -492,7 +572,48 @@ $('shiftHistory').onclick=e=>{
   }
 };
 
-$('fixedForm').onsubmit=e=>{e.preventDefault();let amount=+$('fixedAmount').value;if(!(amount>0))return toast('Valor inválido');data.fixed.push({id:Date.now().toString(36),name:$('fixedName').value.trim(),amount,freq:$('fixedFreq').value});save();$('fixedName').value='';$('fixedAmount').value='';render();toast('Custo fixo adicionado')};$('fixedHistory').onclick=e=>{let b=e.target.closest('[data-fixed-del]');if(b&&confirm('Excluir este custo fixo?')){data.fixed=data.fixed.filter(x=>x.id!==b.dataset.fixedDel);save();render()}};$('startShift').onclick=startShift;$('endShift').onclick=endShift;
+$('fixedForm').onsubmit=e=>{
+  e.preventDefault();
+  let amount=+$('fixedAmount').value;
+  if(!(amount>0))return toast('Valor inválido');
+  
+  let type = $('fixedType').value;
+  let totalInstallments = type === 'parcelado' ? (+$('fixedTimes').value || null) : null;
+  let dueDay = $('fixedDay').value ? +$('fixedDay').value : null;
+
+  data.fixed.push({
+    id:Date.now().toString(36),
+    name:$('fixedName').value.trim(),
+    amount,
+    freq:$('fixedFreq').value,
+    type,
+    dueDay,
+    totalInstallments,
+    createdAt: new Date().toISOString()
+  });
+
+  save();
+  $('fixedName').value='';
+  $('fixedAmount').value='';
+  $('fixedDay').value='';
+  $('fixedTimes').value='';
+  $('fixedType').value='recorrente';
+  $('parcelContainer').style.display='none';
+  render();
+  toast('Custo fixo / parcelado adicionado!');
+};
+
+$('fixedHistory').onclick=e=>{
+  let b=e.target.closest('[data-fixed-del]');
+  if(b&&confirm('Excluir este custo fixo?')){
+    data.fixed=data.fixed.filter(x=>x.id!==b.dataset.fixedDel);
+    save();
+    render();
+  }
+};
+
+$('startShift').onclick=startShift;
+$('endShift').onclick=endShift;
 $('goalForm').onsubmit=e=>{e.preventDefault();data.goalDaily=Math.max(0,+$('goalDaily').value||0);data.goalWeekly=Math.max(0,+$('goalWeekly').value||0);data.goalMonthly=Math.max(0,+$('goalMonthly').value||0);save();render();toast('Metas salvas')};
 $('export').onclick=()=>{let blob=new Blob([JSON.stringify({version:4,exportedAt:new Date().toISOString(),...data},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='gestao-motorista-backup-'+today()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};$('import').onclick=()=>$('importFile').click();$('importFile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let x=JSON.parse(await f.text());if(!Array.isArray(x.entries))throw Error();if(confirm('Substituir os dados atuais pelo backup?')){data={...data,...x,entries:x.entries,fixed:Array.isArray(x.fixed)?x.fixed:[],shifts:Array.isArray(x.shifts)?x.shifts:[],openShift:x.openShift||null};save();fillGoals();render();toast('Backup importado!')}}catch{toast('Arquivo inválido')}finally{e.target.value=''}};$('csv').onclick=()=>{let rows=[['data','tipo','status','plataforma','valor','categoria','km'],...data.entries.map(x=>[x.date,x.kind,x.status||'pago',x.platform,x.amount,x.category,x.km])],csv=rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\r\n'),blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='registros-motorista-'+today()+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 
